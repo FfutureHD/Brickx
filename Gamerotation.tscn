@@ -1,0 +1,116 @@
+[gd_scene load_steps=11 format=3 uid="uid://dt37gkonfda6o"]
+
+[ext_resource type="Script" path="res://Plattformrotation.gd" id="2_5ljwh"]
+[ext_resource type="Script" path="res://BallMovement.gd" id="3_ecyqr"]
+[ext_resource type="Script" path="res://Countdown.gd" id="4_2c1jh"]
+[ext_resource type="Texture2D" uid="uid://ccr7ymw0auavr" path="res://textures/Ball/ball_6x.png" id="4_tlgx8"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_afldp"]
+size = Vector2(10, 5)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6wlin"]
+size = Vector2(5, 5)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0q686"]
+size = Vector2(5, 5)
+
+[sub_resource type="GDScript" id="GDScript_06llm"]
+script/source = "extends Label
+
+
+# Called when the node enters the scene tree for the first time.
+func _ready() -> void:
+	position.x = size.x / 4
+	modulate.a = 0
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta: float) -> void:
+	pass
+"
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_rm76p"]
+radius = 30.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_wuw1s"]
+radius = 3.0
+
+[node name="Mitte" type="Node2D"]
+position = Vector2(198.5, 198.5)
+
+[node name="Plattformrotation" type="Node2D" parent="."]
+rotation = 6.28319
+script = ExtResource("2_5ljwh")
+
+[node name="Plattform" type="Area2D" parent="Plattformrotation"]
+collision_layer = 2
+
+[node name="Mitte" type="CollisionShape2D" parent="Plattformrotation/Plattform"]
+position = Vector2(0, 180)
+shape = SubResource("RectangleShape2D_afldp")
+
+[node name="Polygon2D" type="Polygon2D" parent="Plattformrotation/Plattform"]
+position = Vector2(-0.000808716, 180)
+polygon = PackedVector2Array(5, 0, -5, 0, -10, -1, -10, 2, -5, 3, 5, 3, 10, 2, 10, -1)
+
+[node name="Plattform rechts" type="Area2D" parent="Plattformrotation/Plattform"]
+collision_layer = 4
+
+[node name="Rechts" type="CollisionShape2D" parent="Plattformrotation/Plattform/Plattform rechts"]
+position = Vector2(7.5, 180)
+shape = SubResource("RectangleShape2D_6wlin")
+
+[node name="Plattform links" type="Area2D" parent="Plattformrotation/Plattform"]
+collision_layer = 8
+
+[node name="Links" type="CollisionShape2D" parent="Plattformrotation/Plattform/Plattform links"]
+position = Vector2(-7.5, 180)
+shape = SubResource("RectangleShape2D_0q686")
+
+[node name="Countdown" type="Label" parent="."]
+offset_left = -40.0
+offset_top = -25.0
+offset_right = 40.0
+offset_bottom = 25.0
+text = "3"
+horizontal_alignment = 1
+vertical_alignment = 1
+script = ExtResource("4_2c1jh")
+
+[node name="Lives" type="Label" parent="Countdown"]
+layout_mode = 0
+offset_left = 20.0
+offset_right = 60.0
+offset_bottom = 23.0
+text = "♥️: 3
+"
+horizontal_alignment = 1
+vertical_alignment = 1
+script = SubResource("GDScript_06llm")
+
+[node name="Mitte" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Mitte"]
+shape = SubResource("CircleShape2D_rm76p")
+
+[node name="BallTrajectory" type="Line2D" parent="."]
+points = PackedVector2Array(0, 0, 0, 400)
+width = 1.0
+
+[node name="Ball" type="CharacterBody2D" parent="BallTrajectory"]
+position = Vector2(0, 30)
+collision_mask = 14
+input_pickable = true
+script = ExtResource("3_ecyqr")
+metadata/maxWinkel = 20
+metadata/movementSpeed = 30
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BallTrajectory/Ball"]
+shape = SubResource("CircleShape2D_wuw1s")
+
+[node name="BallSprite" type="Sprite2D" parent="BallTrajectory/Ball"]
+texture = ExtResource("4_tlgx8")
+
+[connection signal="body_entered" from="Plattformrotation/Plattform" to="BallTrajectory/Ball" method="_on_plattform_body_entered"]
+[connection signal="body_entered" from="Plattformrotation/Plattform/Plattform rechts" to="BallTrajectory/Ball" method="_on_plattform_rechts_body_entered"]
+[connection signal="body_entered" from="Plattformrotation/Plattform/Plattform links" to="BallTrajectory/Ball" method="_on_plattform_links_body_entered"]
