@@ -13,6 +13,7 @@ config_version=5
 config/name="Circle Game smart watch"
 run/main_scene="res://Gamerotation.tscn"
 config/features=PackedStringArray("4.3", "GL Compatibility")
+run/max_fps=30
 config/icon="res://icon.svg"
 
 [display]
@@ -24,6 +25,10 @@ window/size/viewport_height=396
 
 version_control/plugin_name="GitPlugin"
 version_control/autoload_on_startup=true
+
+[input_devices]
+
+pointing/android/enable_pan_and_scale_gestures=true
 
 [layer_names]
 

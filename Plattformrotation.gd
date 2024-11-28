@@ -22,22 +22,18 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	pass
 	
+func _input(event:InputEvent) -> void:
+	if event is InputEventMouseButton:
+		if event.button_index == MOUSE_BUTTON_WHEEL_UP:
+			rotation_degrees += rotaryspeed / 20
+		if event.button_index == MOUSE_BUTTON_WHEEL_DOWN:
+			rotation_degrees -= rotaryspeed / 20
+
 func _physics_process(delta: float) -> void:
-	if Input.is_action_just_released("MWU"):
-		rotation_degrees -= delta
-		
-	if Input.is_action_just_released("MWD"):
-		rotation_degrees += rotaryspeed*delta
-		
-	if Input.is_mouse_button_pressed(MOUSE_BUTTON_WHEEL_UP):
-		rotation_degrees -= rotaryspeed* delta
-		
+	
 	if Input.is_key_pressed(KEY_RIGHT):
 		rotation_degrees -= rotaryspeed* delta
 	
-	if Input.is_mouse_button_pressed(MOUSE_BUTTON_WHEEL_DOWN): 
-		rotation_degrees += rotaryspeed*delta
-		
 	if Input.is_key_pressed(KEY_LEFT):
 		rotation_degrees += rotaryspeed* delta
 	
