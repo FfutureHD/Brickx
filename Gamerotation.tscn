@@ -1,9 +1,10 @@
-[gd_scene load_steps=11 format=3 uid="uid://dt37gkonfda6o"]
+[gd_scene load_steps=12 format=3 uid="uid://dt37gkonfda6o"]
 
 [ext_resource type="Script" path="res://Plattformrotation.gd" id="2_5ljwh"]
 [ext_resource type="Script" path="res://BallMovement.gd" id="3_ecyqr"]
 [ext_resource type="Script" path="res://Countdown.gd" id="4_2c1jh"]
 [ext_resource type="Texture2D" uid="uid://ccr7ymw0auavr" path="res://textures/Ball/ball_6x.png" id="4_tlgx8"]
+[ext_resource type="Texture2D" uid="uid://bbgbuq4b71ac3" path="res://textures/watch_overlay.png" id="5_ii0v0"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_afldp"]
 size = Vector2(10, 5)
@@ -110,6 +111,9 @@ shape = SubResource("CircleShape2D_wuw1s")
 
 [node name="BallSprite" type="Sprite2D" parent="BallTrajectory/Ball"]
 texture = ExtResource("4_tlgx8")
+
+[node name="Watch Overlay" type="Sprite2D" parent="."]
+texture = ExtResource("5_ii0v0")
 
 [connection signal="body_entered" from="Plattformrotation/Plattform" to="BallTrajectory/Ball" method="_on_plattform_body_entered"]
 [connection signal="body_entered" from="Plattformrotation/Plattform/Plattform rechts" to="BallTrajectory/Ball" method="_on_plattform_rechts_body_entered"]

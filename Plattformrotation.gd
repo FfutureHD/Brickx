@@ -22,12 +22,19 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	pass
 	
+func _notification(what):
+	if what == NOTIFICATION_WM_GO_BACK_REQUEST:
+		get_tree().change_scene_to_file("res://StartMenu.tscn")
+
 func _input(event:InputEvent) -> void:
 	if event is InputEventMouseButton:
 		if event.button_index == MOUSE_BUTTON_WHEEL_UP:
 			rotation_degrees += rotaryspeed / 20
 		if event.button_index == MOUSE_BUTTON_WHEEL_DOWN:
 			rotation_degrees -= rotaryspeed / 20
+	if event is InputEventKey:
+		if event.keycode == KEY_ESCAPE:
+			get_tree().change_scene_to_file("res://StartMenu.tscn")
 
 func _physics_process(delta: float) -> void:
 	

@@ -3,11 +3,11 @@ extends CharacterBody2D
 @export var Lives = 3
 
 @export var countdown = 3
-var countdownFloat: float = 0.1
+var countdownFloat: float = 0.5
 var start = false
 @export var movementSpeed: float = 100
 
-@export var ballSize:float = 10.0
+@export var ballSize:float = 16.0
 var ballScale: float
 
 var collisionBuffer: float = 0.01
