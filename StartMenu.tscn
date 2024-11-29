@@ -1,7 +1,9 @@
-[gd_scene load_steps=3 format=3 uid="uid://bf22kbjwpmu3m"]
+[gd_scene load_steps=4 format=3 uid="uid://bf22kbjwpmu3m"]
 
 [ext_resource type="Script" path="res://start_menu.gd" id="1_7xnh2"]
 [ext_resource type="Texture2D" uid="uid://bbgbuq4b71ac3" path="res://textures/watch_overlay.png" id="2_g8351"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ail1g"]
 
 [node name="StartMenu" type="Node2D"]
 position = Vector2(198, 198)
@@ -25,44 +27,56 @@ text = "Start Game"
 [node name="settingsButton" type="Button" parent="."]
 offset_right = 8.0
 offset_bottom = 8.0
-theme_override_font_sizes/font_size = 20
-text = "Settings"
+theme_override_font_sizes/font_size = 30
+text = "   Settings   "
 
 [node name="credits" type="Button" parent="."]
 offset_right = 8.0
 offset_bottom = 8.0
+theme_override_styles/focus = SubResource("StyleBoxEmpty_ail1g")
+action_mode = 0
 text = "credits"
 
-[node name="Window" type="Window" parent="credits"]
-title = "credits"
-position = Vector2i(0, 36)
-size = Vector2i(300, 150)
-exclusive = true
-unresizable = true
-always_on_top = true
-popup_window = true
-content_scale_aspect = 1
-theme_override_colors/title_color = Color(0, 1, 1, 1)
+[node name="Panel" type="Panel" parent="credits"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
 
-[node name="creditsLabel" type="Label" parent="credits/Window"]
-offset_right = 211.0
-offset_bottom = 75.0
+[node name="Bar" type="Panel" parent="credits/Panel"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="creditsLabel" type="Label" parent="credits/Panel"]
+offset_left = -198.0
+offset_top = -198.0
+offset_right = 13.0
+offset_bottom = -123.0
 text = "Designed and programmed
 by
 Fabrice Bäder"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="LinkButton" type="LinkButton" parent="credits/Window"]
+[node name="LinkButton" type="LinkButton" parent="credits/Panel"]
 modulate = Color(0, 0.662745, 1, 1)
-offset_right = 40.0
-offset_bottom = 40.0
+offset_left = -198.0
+offset_top = -198.0
+offset_right = -145.0
+offset_bottom = -158.0
 text = "Github"
 uri = "https://github.com/FfutureHD/Brickx"
+
+[node name="closeButton" type="Button" parent="credits/Panel"]
+layout_mode = 0
+offset_right = 8.0
+offset_bottom = 8.0
+theme_override_font_sizes/font_size = 20
+text = " ❌ "
 
 [node name="Watch Overlay" type="Sprite2D" parent="."]
 texture = ExtResource("2_g8351")
 
 [connection signal="pressed" from="startGameButton" to="." method="_on_start_game_button_pressed"]
 [connection signal="pressed" from="credits" to="." method="_on_credits_pressed"]
-[connection signal="close_requested" from="credits/Window" to="." method="_on_window_close_requested"]
+[connection signal="pressed" from="credits/Panel/closeButton" to="." method="_on_close_button_pressed"]

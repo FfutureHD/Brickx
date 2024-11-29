@@ -33,7 +33,7 @@ func _input(event:InputEvent) -> void:
 		if event.button_index == MOUSE_BUTTON_WHEEL_DOWN:
 			rotation_degrees -= rotaryspeed / 20
 	if event is InputEventKey:
-		if event.keycode == KEY_ESCAPE:
+		if Input.is_key_pressed(KEY_ESCAPE):
 			get_tree().change_scene_to_file("res://StartMenu.tscn")
 
 func _physics_process(delta: float) -> void:
