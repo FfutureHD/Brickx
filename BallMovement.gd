@@ -1,13 +1,11 @@
 extends CharacterBody2D
 
-@export var Lives = 3
-
-@export var countdown = 3
 var countdownFloat: float = 0.5
-var start = false
-@export var movementSpeed: float = 100
+var movementSpeed: float
+var ballSize:float 
 
-@export var ballSize:float = 16.0
+var winkelAddierung: float 
+
 var ballScale: float
 
 var collisionBuffer: float = 0.01
@@ -21,19 +19,58 @@ var trajectoryAngle: float
 var platformAngle: float
 var angleOut: float
 
-var winkelAddierung: float = PI / 36
 
 var eingangswinkel
-var ausgangswinkel
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	
+	##loads save file:
+	var file = FileAccess.open("user://save.cfg", FileAccess.READ)
+	var content = file.get_as_text()
+	var save = JSON.parse_string(file.get_as_text())
+	
+	
+	winkelAddierung = PI / 360 * get_meta("maxWinkel")
+	ballSize = get_meta("ballSize")
+	movementSpeed = get_meta("movementSpeed")
+	
+	get_parent().position = Vector2(0, 0)
+	get_parent().rotation = 0
+	position = Vector2(0, 30)
+	eingangswinkel = get_meta("eingangswinkel")
+	
+	if content != "":
+		ballSize = save.ballsize
+		movementSpeed = save.movementspeed
+		eingangswinkel = save.eingangswinkel
+		get_parent().position = string_to_vector2(save.trajectoryposition)
+		get_parent().rotation = save.trajectoryrotation
+		position = string_to_vector2(save.ballposition)
+	
+	_changesize(ballSize)
+	
+	
+
+static func string_to_vector2(string := "") -> Vector2:
+	if string:
+		var new_string: String = string
+		new_string = new_string.erase(0, 1)
+		new_string = new_string.erase(new_string.length() - 1, 1)
+		var array: Array = new_string.split(", ")
+
+		return Vector2(int(array[0]), int(array[1]))
+
+	return Vector2.ZERO
+
+func reset() -> void:
+	ballSize = get_meta("ballSize")
+	movementSpeed = get_meta("movementSpeed")
 	get_parent().position = Vector2(0, 0)
 	get_parent().rotation = 0
 	position = Vector2(0, 30)
 	eingangswinkel = 0
-	_changesize(ballSize)
-	
+	_changesize(get_meta("ballSize"))
 
 func _changesize(ballSize: float) -> void:
 	## sets the right sprite and radius for the ballSize
@@ -78,17 +115,7 @@ func _changesize(ballSize: float) -> void:
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	
-	if countdown > 0:
-		if countdown>0:
-			countdownFloat += delta
-			
-			if countdownFloat>=1:
-				countdown -= 1
-				countdownFloat = 0
-	else:
-		start = true
-	
-	if start == true:
+	if get_parent().get_parent().get_node("Countdown").get_meta("start") == true:
 		trajectoryX = get_parent().get_point_position(1).x - position.x
 		trajectoryY = get_parent().get_point_position(1).y - position.y
 		trajectoryLenght = sqrt(trajectoryX ** 2 + trajectoryY ** 2)
@@ -102,13 +129,13 @@ func _process(delta: float) -> void:
 			ableToCollide = true
 			countdownFloat = 0
 	
-	if sqrt((global_position.x - get_parent().get_parent().position.x) ** 2 + (global_position.y - get_parent().get_parent().position.y) ** 2) >= 200:
-		Lives -= 1
-		get_parent().get_parent().get_node("Countdown/Lives").text = String("♥️: %d" % Lives)
-		_ready()
-
-
-
+	if (sqrt((global_position.x - get_parent().get_parent().position.x) ** 2 + (global_position.y - get_parent().get_parent().position.y) ** 2) >= 200):
+		##TODO check if other Balls are still in the game?
+		if get_parent().get_parent().get_node("Countdown/Lives").get_meta("Lives") >= 0:
+			get_parent().get_parent().get_node("Countdown/Lives").set_meta("Lives", get_parent().get_parent().get_node("Countdown/Lives").get_meta("Lives") - 1)
+		if get_parent().get_parent().get_node("Countdown/Lives").get_meta("Lives") > 0:
+			reset()
+		
 
 
 func _on_plattform_body_entered(body: Node2D) -> void:
@@ -118,19 +145,15 @@ func _on_plattform_body_entered(body: Node2D) -> void:
 			ableToCollide = false
 			
 			platformAngle = atan2(global_position.y - get_parent().get_parent().position.y, global_position.x - get_parent().get_parent().position.x)
-			ausgangswinkel = 2 * platformAngle - eingangswinkel
-			while ausgangswinkel >= 2 * PI:
-				ausgangswinkel -= 2 * PI
-			while ausgangswinkel < 0:
-				ausgangswinkel += 2 * PI
-			var test = String("eingangswinkel: %0.5f" % eingangswinkel)
-			print(test)
-			test = String("ausgangswinkel: %0.5f" % ausgangswinkel)
-			print(test)
+			eingangswinkel = 2 * platformAngle - eingangswinkel
+			while eingangswinkel >= 2 * PI:
+				eingangswinkel -= 2 * PI
+			while eingangswinkel < 0:
+				eingangswinkel += 2 * PI
 			get_parent().position = global_position - get_parent().get_parent().position
 			position = Vector2(0, 0)
-			get_parent().rotation = ausgangswinkel
-			eingangswinkel = ausgangswinkel
+			get_parent().rotation = eingangswinkel
+			set_meta("eingangswinkel", eingangswinkel)
 			
 
 
@@ -144,19 +167,15 @@ func _on_plattform_rechts_body_entered(body: Node2D) -> void:
 			ableToCollide = false
 			
 			platformAngle = atan2(global_position.y - get_parent().get_parent().position.y, global_position.x - get_parent().get_parent().position.x)
-			ausgangswinkel = (2 * platformAngle - eingangswinkel)  - winkelAddierung
-			while ausgangswinkel >= 2 * PI:
-				ausgangswinkel -= 2 * PI
-			while ausgangswinkel < 0:
-				ausgangswinkel += 2 * PI
-			var test = String("eingangswinkel: %0.5f" % eingangswinkel)
-			print(test)
-			test = String("ausgangswinkel: %0.5f" % ausgangswinkel)
-			print(test)
+			eingangswinkel = (2 * platformAngle - eingangswinkel)  - winkelAddierung
+			while eingangswinkel >= 2 * PI:
+				eingangswinkel -= 2 * PI
+			while eingangswinkel < 0:
+				eingangswinkel += 2 * PI
 			get_parent().position = global_position - get_parent().get_parent().position
 			position = Vector2(0, 0)
-			get_parent().rotation = ausgangswinkel
-			eingangswinkel = ausgangswinkel
+			get_parent().rotation = eingangswinkel
+			set_meta("eingangswinkel", eingangswinkel)
 			
 
 
@@ -170,17 +189,13 @@ func _on_plattform_links_body_entered(body: Node2D) -> void:
 			ableToCollide = false
 			
 			platformAngle = atan2(global_position.y - get_parent().get_parent().position.y, global_position.x - get_parent().get_parent().position.x)
-			ausgangswinkel = (2 * platformAngle - eingangswinkel)  + winkelAddierung
-			while ausgangswinkel >= 2 * PI:
-				ausgangswinkel -= 2 * PI
-			while ausgangswinkel < 0:
-				ausgangswinkel += 2 * PI
-			var test = String("eingangswinkel: %0.5f" % eingangswinkel)
-			print(test)
-			test = String("ausgangswinkel: %0.5f" % ausgangswinkel)
-			print(test)
+			eingangswinkel = (2 * platformAngle - eingangswinkel)  + winkelAddierung
+			while eingangswinkel >= 2 * PI:
+				eingangswinkel -= 2 * PI
+			while eingangswinkel < 0:
+				eingangswinkel += 2 * PI
 			get_parent().position = global_position - get_parent().get_parent().position
 			position = Vector2(0, 0)
-			get_parent().rotation = ausgangswinkel
-			eingangswinkel = ausgangswinkel
+			get_parent().rotation = eingangswinkel
+			set_meta("eingangswinkel", eingangswinkel)
 			

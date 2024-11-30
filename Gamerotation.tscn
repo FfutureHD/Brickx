@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://dt37gkonfda6o"]
+[gd_scene load_steps=11 format=3 uid="uid://dt37gkonfda6o"]
 
 [ext_resource type="Script" path="res://Plattformrotation.gd" id="2_5ljwh"]
 [ext_resource type="Script" path="res://BallMovement.gd" id="3_ecyqr"]
@@ -15,21 +15,6 @@ size = Vector2(5, 5)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0q686"]
 size = Vector2(5, 5)
 
-[sub_resource type="GDScript" id="GDScript_06llm"]
-script/source = "extends Label
-
-
-# Called when the node enters the scene tree for the first time.
-func _ready() -> void:
-	position.x = size.x / 4
-	modulate.a = 0
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass
-"
-
 [sub_resource type="CircleShape2D" id="CircleShape2D_rm76p"]
 radius = 30.0
 
@@ -42,6 +27,7 @@ position = Vector2(198.5, 198.5)
 [node name="Plattformrotation" type="Node2D" parent="."]
 rotation = 6.28319
 script = ExtResource("2_5ljwh")
+metadata/platformSize = 5
 
 [node name="Plattform" type="Area2D" parent="Plattformrotation"]
 collision_layer = 2
@@ -77,17 +63,28 @@ text = "3"
 horizontal_alignment = 1
 vertical_alignment = 1
 script = ExtResource("4_2c1jh")
+metadata/start = false
 
 [node name="Lives" type="Label" parent="Countdown"]
 layout_mode = 0
 offset_left = 20.0
 offset_right = 60.0
 offset_bottom = 23.0
-text = "♥️: 3
+text = "
 "
 horizontal_alignment = 1
 vertical_alignment = 1
-script = SubResource("GDScript_06llm")
+autowrap_mode = 2
+metadata/Lives = 1
+
+[node name="Points" type="Label" parent="Countdown"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+text = "Points: 42"
+horizontal_alignment = 1
+vertical_alignment = 1
+metadata/points = 42
 
 [node name="Mitte" type="Area2D" parent="."]
 
@@ -103,8 +100,10 @@ position = Vector2(0, 30)
 collision_mask = 14
 input_pickable = true
 script = ExtResource("3_ecyqr")
-metadata/maxWinkel = 20
-metadata/movementSpeed = 30
+metadata/maxWinkel = 10
+metadata/movementSpeed = 100
+metadata/ballSize = 16.0
+metadata/eingangswinkel = 0.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="BallTrajectory/Ball"]
 shape = SubResource("CircleShape2D_wuw1s")
@@ -115,6 +114,38 @@ texture = ExtResource("4_tlgx8")
 [node name="Watch Overlay" type="Sprite2D" parent="."]
 texture = ExtResource("5_ii0v0")
 
+[node name="Lost" type="Panel" parent="."]
+offset_right = 40.0
+offset_bottom = 40.0
+metadata/lost = false
+
+[node name="Losttext" type="Label" parent="Lost"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+theme_override_font_sizes/font_size = 20
+text = "oh no
+you've lost
+you got xxx points"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Menu" type="Button" parent="Lost"]
+layout_mode = 0
+offset_right = 8.0
+offset_bottom = 8.0
+theme_override_font_sizes/font_size = 20
+text = "Menu"
+
+[node name="Try Again" type="Button" parent="Lost"]
+layout_mode = 0
+offset_right = 8.0
+offset_bottom = 8.0
+theme_override_font_sizes/font_size = 20
+text = "Try Again"
+
 [connection signal="body_entered" from="Plattformrotation/Plattform" to="BallTrajectory/Ball" method="_on_plattform_body_entered"]
 [connection signal="body_entered" from="Plattformrotation/Plattform/Plattform rechts" to="BallTrajectory/Ball" method="_on_plattform_rechts_body_entered"]
 [connection signal="body_entered" from="Plattformrotation/Plattform/Plattform links" to="BallTrajectory/Ball" method="_on_plattform_links_body_entered"]
+[connection signal="pressed" from="Lost/Menu" to="Countdown" method="_on_menu_pressed"]
+[connection signal="pressed" from="Lost/Try Again" to="Countdown" method="_on_try_again_pressed"]

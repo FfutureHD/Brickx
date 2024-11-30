@@ -22,7 +22,7 @@ vertical_alignment = 1
 offset_right = 8.0
 offset_bottom = 8.0
 theme_override_font_sizes/font_size = 30
-text = "Start Game"
+text = "New Game"
 
 [node name="settingsButton" type="Button" parent="."]
 offset_right = 8.0
@@ -48,6 +48,7 @@ offset_right = 40.0
 offset_bottom = 40.0
 
 [node name="creditsLabel" type="Label" parent="credits/Panel"]
+layout_mode = 0
 offset_left = -198.0
 offset_top = -198.0
 offset_right = 13.0
@@ -60,6 +61,7 @@ vertical_alignment = 1
 
 [node name="LinkButton" type="LinkButton" parent="credits/Panel"]
 modulate = Color(0, 0.662745, 1, 1)
+layout_mode = 0
 offset_left = -198.0
 offset_top = -198.0
 offset_right = -145.0
@@ -74,9 +76,16 @@ offset_bottom = 8.0
 theme_override_font_sizes/font_size = 20
 text = " ❌ "
 
+[node name="Continue Game" type="Button" parent="."]
+offset_right = 8.0
+offset_bottom = 8.0
+theme_override_font_sizes/font_size = 30
+text = "Continue Game"
+
 [node name="Watch Overlay" type="Sprite2D" parent="."]
 texture = ExtResource("2_g8351")
 
 [connection signal="pressed" from="startGameButton" to="." method="_on_start_game_button_pressed"]
 [connection signal="pressed" from="credits" to="." method="_on_credits_pressed"]
 [connection signal="pressed" from="credits/Panel/closeButton" to="." method="_on_close_button_pressed"]
+[connection signal="pressed" from="Continue Game" to="." method="_on_continue_game_pressed"]
