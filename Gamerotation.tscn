@@ -1,6 +1,8 @@
-[gd_scene load_steps=11 format=3 uid="uid://dt37gkonfda6o"]
+[gd_scene load_steps=13 format=3 uid="uid://dt37gkonfda6o"]
 
+[ext_resource type="Script" path="res://saveload.gd" id="1_qdvv5"]
 [ext_resource type="Script" path="res://Plattformrotation.gd" id="2_5ljwh"]
+[ext_resource type="Script" path="res://bricks.gd" id="3_23sm5"]
 [ext_resource type="Script" path="res://BallMovement.gd" id="3_ecyqr"]
 [ext_resource type="Script" path="res://Countdown.gd" id="4_2c1jh"]
 [ext_resource type="Texture2D" uid="uid://ccr7ymw0auavr" path="res://textures/Ball/ball_6x.png" id="4_tlgx8"]
@@ -16,13 +18,14 @@ size = Vector2(5, 5)
 size = Vector2(5, 5)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_rm76p"]
-radius = 30.0
+radius = 80.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_wuw1s"]
 radius = 3.0
 
 [node name="Mitte" type="Node2D"]
 position = Vector2(198.5, 198.5)
+script = ExtResource("1_qdvv5")
 
 [node name="Plattformrotation" type="Node2D" parent="."]
 rotation = 6.28319
@@ -75,28 +78,62 @@ text = "
 horizontal_alignment = 1
 vertical_alignment = 1
 autowrap_mode = 2
-metadata/Lives = 1
+metadata/Lives = 3
 
 [node name="Points" type="Label" parent="Countdown"]
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 23.0
-text = "Points: 42"
+text = "Points: 0"
 horizontal_alignment = 1
 vertical_alignment = 1
-metadata/points = 42
+metadata/points = 0
 
 [node name="Mitte" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Mitte"]
 shape = SubResource("CircleShape2D_rm76p")
 
+[node name="Bricks" type="Node2D" parent="."]
+script = ExtResource("3_23sm5")
+metadata/difficulty = 1
+metadata/rotation0 = 0.0
+metadata/rotation1 = 0.0
+metadata/rotation2 = 0.0
+metadata/rotation3 = 0.0
+metadata/rotation4 = 0.0
+metadata/rotation5 = 0.0
+metadata/rotation6 = 0.0
+metadata/rotation7 = 0.0
+metadata/rotation8 = 0.0
+metadata/rotation9 = 0.0
+
+[node name="Layer 0" type="Node2D" parent="Bricks"]
+
+[node name="Layer 1" type="Node2D" parent="Bricks"]
+
+[node name="Layer 2" type="Node2D" parent="Bricks"]
+
+[node name="Layer 3" type="Node2D" parent="Bricks"]
+
+[node name="Layer 4" type="Node2D" parent="Bricks"]
+
+[node name="Layer 5" type="Node2D" parent="Bricks"]
+
+[node name="Layer 6" type="Node2D" parent="Bricks"]
+
+[node name="Layer 7" type="Node2D" parent="Bricks"]
+
+[node name="Layer 8" type="Node2D" parent="Bricks"]
+
+[node name="Layer 9" type="Node2D" parent="Bricks"]
+
 [node name="BallTrajectory" type="Line2D" parent="."]
 points = PackedVector2Array(0, 0, 0, 400)
 width = 1.0
 
 [node name="Ball" type="CharacterBody2D" parent="BallTrajectory"]
-position = Vector2(0, 30)
+position = Vector2(0, 100)
 collision_mask = 14
 input_pickable = true
 script = ExtResource("3_ecyqr")

@@ -28,6 +28,10 @@ window/size/viewport_height=396
 version_control/plugin_name="GitPlugin"
 version_control/autoload_on_startup=true
 
+[global_group]
+
+save=""
+
 [input_devices]
 
 pointing/android/enable_pan_and_scale_gestures=true

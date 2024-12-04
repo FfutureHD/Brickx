@@ -3,6 +3,7 @@ extends Label
 @export var Countdown = 3
 var Countdownfloat = 0
 var Lives
+var Points
 
 var CoutdownEnded: bool = false
 
@@ -22,6 +23,7 @@ func _ready() -> void:
 	get_parent().get_node("Lost").set_meta("lost", false)
 	
 	Lives = $Lives.get_meta("Lives")
+	Points = $Points.get_meta("points")
 	$Lives.text = ""
 	for n in Lives:
 		$Lives.text = String("%s♥️" % $Lives.text)
@@ -73,6 +75,9 @@ func _process(delta: float) -> void:
 			$Lives.position.x = $Lives.size.x / 2
 		else:
 			lost()
+	if $Points.get_meta("points") != Points:
+		Points = $Points.get_meta("points")
+		$Points.text = String("Points: %d" % Points)
 
 func lost() -> void:
 	get_parent().get_node("Lost/Losttext").text = String("""Oh no
@@ -89,7 +94,6 @@ func lost() -> void:
 	var save_data = ""
 	cfgFile.store_string(save_data)
 	cfgFile = null
-
 
 func _on_menu_pressed() -> void:
 	get_tree().change_scene_to_file("res://StartMenu.tscn")

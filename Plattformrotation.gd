@@ -53,11 +53,47 @@ func save() -> void:
 		"movementspeed": get_parent().get_node("BallTrajectory/Ball").get_meta("movementSpeed"),
 		"eingangswinkel": get_parent().get_node("BallTrajectory/Ball").get_meta("eingangswinkel"),
 		"platformSize": platformSize,
-		"platformrotation": rotation
+		"platformrotation": rotation,
+		"lay0rot": get_parent().get_node("Bricks").get_meta("rotation0"),
+		"lay1rot": get_parent().get_node("Bricks").get_meta("rotation1"),
+		"lay2rot": get_parent().get_node("Bricks").get_meta("rotation2"),
+		"lay3rot": get_parent().get_node("Bricks").get_meta("rotation3"),
+		"lay4rot": get_parent().get_node("Bricks").get_meta("rotation4"),
+		"lay5rot": get_parent().get_node("Bricks").get_meta("rotation5"),
+		"lay6rot": get_parent().get_node("Bricks").get_meta("rotation6"),
+		"lay7rot": get_parent().get_node("Bricks").get_meta("rotation7"),
+		"lay8rot": get_parent().get_node("Bricks").get_meta("rotation8"),
+		"lay9rot": get_parent().get_node("Bricks").get_meta("rotation9"),
+		"lay0rotdeg": get_parent().get_node("Bricks/Layer 0").rotation,
+		"lay1rotdeg": get_parent().get_node("Bricks/Layer 1").rotation,
+		"lay2rotdeg": get_parent().get_node("Bricks/Layer 2").rotation,
+		"lay3rotdeg": get_parent().get_node("Bricks/Layer 3").rotation,
+		"lay4rotdeg": get_parent().get_node("Bricks/Layer 4").rotation,
+		"lay5rotdeg": get_parent().get_node("Bricks/Layer 5").rotation,
+		"lay6rotdeg": get_parent().get_node("Bricks/Layer 6").rotation,
+		"lay7rotdeg": get_parent().get_node("Bricks/Layer 7").rotation,
+		"lay8rotdeg": get_parent().get_node("Bricks/Layer 8").rotation,
+		"lay9rotdeg": get_parent().get_node("Bricks/Layer 9").rotation
 	}
 	var cfgFile = FileAccess.open("user://save.cfg", FileAccess.WRITE)
 	cfgFile.store_string(JSON.stringify(save_data))
 	cfgFile = null
+	
+	var nodecfg = FileAccess.open("user://bricksave.cfg", FileAccess.WRITE)
+	
+	var save_nodes = get_tree().get_nodes_in_group("save")
+	for node in save_nodes:
+		nodecfg.store_line(JSON.stringify(saveNode(node)))
+
+func saveNode(node: Node):
+	var save_dict = {
+		"filename" : node.get_scene_file_path(),
+		"parent" : node.get_parent().get_path(),
+		"pos_x" : node.position.x, # Vector2 is not supported by JSON
+		"pos_y" : node.position.y,
+		"rotation" : node.rotation
+	}
+	return save_dict
 
 func _input(event:InputEvent) -> void:
 	if event is InputEventMouseButton:

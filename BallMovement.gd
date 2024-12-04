@@ -37,7 +37,7 @@ func _ready() -> void:
 	
 	get_parent().position = Vector2(0, 0)
 	get_parent().rotation = 0
-	position = Vector2(0, 30)
+	position = Vector2(0, 100)
 	eingangswinkel = get_meta("eingangswinkel")
 	
 	if content != "":

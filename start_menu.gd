@@ -78,9 +78,11 @@ func _on_credits_pressed() -> void:
 
 func _on_start_game_button_pressed() -> void:
 	var cfgFile = FileAccess.open("user://save.cfg", FileAccess.WRITE)
-	var save_data = ""
-	cfgFile.store_string(save_data)
+	cfgFile.store_string("")
 	cfgFile = null
+	var nodeSave = FileAccess.open("user://bricksave.cfg", FileAccess.WRITE)
+	nodeSave.store_string("")
+	nodeSave = null
 	get_tree().change_scene_to_file("res://Gamerotation.tscn")
 
 
