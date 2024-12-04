@@ -25,12 +25,6 @@ var eingangswinkel
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	
-	##loads save file:
-	var file = FileAccess.open("user://save.cfg", FileAccess.READ)
-	var content = file.get_as_text()
-	var save = JSON.parse_string(file.get_as_text())
-	
-	
 	winkelAddierung = PI / 360 * get_meta("maxWinkel")
 	ballSize = get_meta("ballSize")
 	movementSpeed = get_meta("movementSpeed")
@@ -39,29 +33,8 @@ func _ready() -> void:
 	get_parent().rotation = 0
 	position = Vector2(0, 100)
 	eingangswinkel = get_meta("eingangswinkel")
+	_changesize()
 	
-	if content != "":
-		ballSize = save.ballsize
-		movementSpeed = save.movementspeed
-		eingangswinkel = save.eingangswinkel
-		get_parent().position = string_to_vector2(save.trajectoryposition)
-		get_parent().rotation = save.trajectoryrotation
-		position = string_to_vector2(save.ballposition)
-	
-	_changesize(ballSize)
-	
-	
-
-static func string_to_vector2(string := "") -> Vector2:
-	if string:
-		var new_string: String = string
-		new_string = new_string.erase(0, 1)
-		new_string = new_string.erase(new_string.length() - 1, 1)
-		var array: Array = new_string.split(", ")
-
-		return Vector2(int(array[0]), int(array[1]))
-
-	return Vector2.ZERO
 
 func reset() -> void:
 	ballSize = get_meta("ballSize")
@@ -70,9 +43,9 @@ func reset() -> void:
 	get_parent().rotation = 0
 	position = Vector2(0, 30)
 	eingangswinkel = 0
-	_changesize(get_meta("ballSize"))
+	_changesize()
 
-func _changesize(ballSize: float) -> void:
+func _changesize() -> void:
 	## sets the right sprite and radius for the ballSize
 	
 	$CollisionShape2D.shape.radius = ballSize / 2 + 1
@@ -199,3 +172,15 @@ func _on_plattform_links_body_entered(body: Node2D) -> void:
 			get_parent().rotation = eingangswinkel
 			set_meta("eingangswinkel", eingangswinkel)
 			
+
+func updateFromSave(trajposx, trajposy, trajrot, posx, posy, size, speed, winkel):
+	get_parent().position = Vector2(trajposx, trajposy)
+	get_parent().rotation = trajrot
+	position = Vector2(posx, posy)
+	set_meta("ballSize", size)
+	ballSize = size
+	set_meta("movementSpeed", speed)
+	movementSpeed = speed
+	set_meta("eingangswinkel", winkel)
+	eingangswinkel = winkel
+	

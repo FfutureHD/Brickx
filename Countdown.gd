@@ -11,15 +11,6 @@ var CountdownEnded: bool = false
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	
-	##load the save file:
-	var file = FileAccess.open("user://save.cfg", FileAccess.READ)
-	var content = file.get_as_text()
-	var save = JSON.parse_string(file.get_as_text())
-	
-	if content != "":
-		$Lives.set_meta("Lives", save.lives)
-		$Points.set_meta("points", save.points)
-	
 	get_parent().get_node("Lost").set_meta("lost", false)
 	
 	Lives = $Lives.get_meta("Lives")
@@ -54,6 +45,8 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
+	
+	## Countdown when Game is Paused or restarts:
 	if CountdownEnded == true and get_meta("start") == false:
 		CountdownEnded = false
 		Countdown = get_meta("Countdown")
@@ -79,7 +72,9 @@ func _process(delta: float) -> void:
 				$Points.modulate.a = 1
 				text = ""
 				modulate.a = 1
-				
+	
+	## Update Lives and Points:
+	
 	if $Lives.get_meta("Lives") != Lives:
 		Lives = $Lives.get_meta("Lives")
 		if $Lives.get_meta("Lives") >= 0:

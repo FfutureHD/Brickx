@@ -27,7 +27,15 @@ radius = 3.0
 position = Vector2(198.5, 198.5)
 script = ExtResource("1_qdvv5")
 
-[node name="ColorRect" type="ColorRect" parent="."]
+[node name="BG" type="ColorRect" parent="."]
+visible = false
+offset_left = -300.0
+offset_top = -300.0
+offset_right = 300.0
+offset_bottom = 300.0
+color = Color(0, 0, 0, 1)
+
+[node name="ColorRect" type="ColorRect" parent="BG"]
 offset_left = -300.0
 offset_top = -300.0
 offset_right = 300.0
