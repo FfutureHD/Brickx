@@ -1,11 +1,11 @@
 extends Label
 
-@export var Countdown = 3
+var Countdown
 var Countdownfloat = 0
 var Lives
 var Points
 
-var CoutdownEnded: bool = false
+var CountdownEnded: bool = false
 
 
 # Called when the node enters the scene tree for the first time.
@@ -28,6 +28,8 @@ func _ready() -> void:
 	for n in Lives:
 		$Lives.text = String("%s♥️" % $Lives.text)
 	
+	Countdown = get_meta("Countdown")
+	
 	text = str(Countdown)
 	$Lives.position.x = $Lives.size.x / 2
 	$Lives.position.y = 0
@@ -42,10 +44,22 @@ func _ready() -> void:
 	get_parent().get_node("Lost").position = -get_parent().get_node("Lost").size / 2
 	get_parent().get_node("Lost/Try Again").position = Vector2(10, get_parent().get_node("Lost").size.y - get_parent().get_node("Lost/Try Again").size.y - 10)
 	get_parent().get_node("Lost/Menu").position = Vector2(get_parent().get_node("Lost").size.x - get_parent().get_node("Lost/Menu").size.x - 10, get_parent().get_node("Lost").size.y - get_parent().get_node("Lost/Menu").size.y - 10)
+	
+	get_parent().get_node("Paused").visible = false
+	get_parent().get_node("Paused").size = get_parent().get_node("Paused/Pausedtext").size + Vector2(20, 20 + get_parent().get_node("Paused/Resume").size.y)
+	get_parent().get_node("Paused").position = -get_parent().get_node("Paused").size / 2
+	get_parent().get_node("Paused/Pausedtext").position = Vector2(10, 5)
+	get_parent().get_node("Paused/Resume").position = Vector2((get_parent().get_node("Paused").size.x - get_parent().get_node("Paused/Resume").size.x) / 2, get_parent().get_node("Paused").size.y - get_parent().get_node("Paused/Resume").size.y - 5)
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
+	if CountdownEnded == true and get_meta("start") == false:
+		CountdownEnded = false
+		Countdown = get_meta("Countdown")
+		$Lives.modulate.a = 0
+		$Points.modulate.a = 0
+		text = str(Countdown)
 	if Countdown >= 0:
 		if Countdown>0:
 			Countdownfloat +=delta
@@ -54,9 +68,9 @@ func _process(delta: float) -> void:
 				Countdownfloat = 0
 				text = str(Countdown)
 		if Countdown==0:
-			if ! CoutdownEnded:
+			if ! CountdownEnded:
 				set_meta("start", true)
-				CoutdownEnded = true
+				CountdownEnded = true
 			text = "Start"
 			modulate.a -= delta
 			if modulate.a<=0:

@@ -41,6 +41,9 @@ func _notification(what):
 		if ! get_parent().get_node("Lost").get_meta("lost"):
 			save()
 		get_tree().quit()
+	if what == MainLoop.NOTIFICATION_APPLICATION_FOCUS_OUT:
+		# goes to background
+		pauseGame()
 
 func save() -> void:
 	var save_data = {
@@ -113,3 +116,17 @@ func _physics_process(delta: float) -> void:
 	if Input.is_key_pressed(KEY_LEFT):
 		rotation_degrees += rotaryspeed* delta
 	
+
+func pauseGame() -> void:
+	
+	get_parent().get_node("Countdown").set_meta("start", false)
+	save()
+	get_parent().get_node("Countdown").hide()
+	get_parent().get_node("Paused").visible = true
+	
+	get_tree().paused = true
+
+func _on_resume_pressed() -> void:
+	get_tree().paused = false
+	get_parent().get_node("Countdown").show()
+	get_parent().get_node("Paused").visible = false

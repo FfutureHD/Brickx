@@ -27,6 +27,13 @@ radius = 3.0
 position = Vector2(198.5, 198.5)
 script = ExtResource("1_qdvv5")
 
+[node name="ColorRect" type="ColorRect" parent="."]
+offset_left = -300.0
+offset_top = -300.0
+offset_right = 300.0
+offset_bottom = 300.0
+color = Color(0, 0, 0, 1)
+
 [node name="Plattformrotation" type="Node2D" parent="."]
 rotation = 6.28319
 script = ExtResource("2_5ljwh")
@@ -67,6 +74,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 script = ExtResource("4_2c1jh")
 metadata/start = false
+metadata/Countdown = 3.0
 
 [node name="Lives" type="Label" parent="Countdown"]
 layout_mode = 0
@@ -181,8 +189,27 @@ offset_bottom = 8.0
 theme_override_font_sizes/font_size = 20
 text = "Try Again"
 
+[node name="Paused" type="Panel" parent="."]
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Pausedtext" type="Label" parent="Paused"]
+offset_right = 40.0
+offset_bottom = 23.0
+theme_override_font_sizes/font_size = 30
+text = "Game is Paused"
+
+[node name="Resume" type="Button" parent="Paused"]
+process_mode = 2
+layout_mode = 0
+offset_right = 8.0
+offset_bottom = 8.0
+theme_override_font_sizes/font_size = 30
+text = "Resume"
+
 [connection signal="body_entered" from="Plattformrotation/Plattform" to="BallTrajectory/Ball" method="_on_plattform_body_entered"]
 [connection signal="body_entered" from="Plattformrotation/Plattform/Plattform rechts" to="BallTrajectory/Ball" method="_on_plattform_rechts_body_entered"]
 [connection signal="body_entered" from="Plattformrotation/Plattform/Plattform links" to="BallTrajectory/Ball" method="_on_plattform_links_body_entered"]
 [connection signal="pressed" from="Lost/Menu" to="Countdown" method="_on_menu_pressed"]
 [connection signal="pressed" from="Lost/Try Again" to="Countdown" method="_on_try_again_pressed"]
+[connection signal="pressed" from="Paused/Resume" to="Plattformrotation" method="_on_resume_pressed"]
