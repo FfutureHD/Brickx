@@ -1,7 +1,20 @@
-[gd_scene load_steps=4 format=3 uid="uid://bf22kbjwpmu3m"]
+[gd_scene load_steps=10 format=3 uid="uid://bf22kbjwpmu3m"]
 
 [ext_resource type="Script" path="res://start_menu.gd" id="1_7xnh2"]
+[ext_resource type="Script" path="res://settings.gd" id="2_7g2uj"]
 [ext_resource type="Texture2D" uid="uid://bbgbuq4b71ac3" path="res://textures/watch_overlay.png" id="2_g8351"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_6yymx"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_g0std"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mayaj"]
+bg_color = Color(0, 0, 0, 0.2)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ebgwo"]
+bg_color = Color(0, 0, 0, 0.2)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_jsqdb"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ail1g"]
 
@@ -27,16 +40,94 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="startGameButton" type="Button" parent="."]
+modulate = Color(0, 0.701961, 0.309804, 1)
 offset_right = 8.0
 offset_bottom = 8.0
 theme_override_font_sizes/font_size = 30
 text = "New Game"
 
 [node name="settingsButton" type="Button" parent="."]
+modulate = Color(0.635294, 0.470588, 1, 1)
 offset_right = 8.0
 offset_bottom = 8.0
 theme_override_font_sizes/font_size = 30
 text = "   Settings   "
+
+[node name="Settings" type="Panel" parent="."]
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("2_7g2uj")
+metadata/Difficulty = 1
+metadata/Language = 0
+
+[node name="Bar" type="Panel" parent="Settings"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Settings" type="Label" parent="Settings"]
+modulate = Color(0.435192, 0.435192, 0.435192, 1)
+layout_mode = 0
+offset_right = 62.0
+offset_bottom = 23.0
+text = "Settings"
+vertical_alignment = 1
+
+[node name="closeButton" type="Button" parent="Settings"]
+offset_right = 46.0
+offset_bottom = 36.0
+theme_override_font_sizes/font_size = 20
+text = " ❌ "
+
+[node name="FPS" type="Node2D" parent="Settings"]
+
+[node name="Label" type="Label" parent="Settings/FPS"]
+offset_right = 40.0
+offset_bottom = 23.0
+text = "FPS (might impact battery):"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="CheckButton" type="CheckButton" parent="Settings/FPS"]
+offset_top = 50.0
+offset_right = 98.0
+offset_bottom = 81.0
+theme_override_styles/focus = SubResource("StyleBoxEmpty_6yymx")
+button_pressed = true
+text = "60 FPS"
+
+[node name="Difficulty" type="Node2D" parent="Settings"]
+
+[node name="Label" type="Label" parent="Settings/Difficulty"]
+offset_right = 40.0
+offset_bottom = 23.0
+text = "Difficulty (is applied in next game):"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Button" type="Button" parent="Settings/Difficulty"]
+custom_minimum_size = Vector2(80, 0)
+offset_right = 80.0
+offset_bottom = 31.0
+theme_override_styles/focus = SubResource("StyleBoxEmpty_g0std")
+theme_override_styles/hover = SubResource("StyleBoxFlat_mayaj")
+theme_override_styles/normal = SubResource("StyleBoxFlat_ebgwo")
+text = "Beginner"
+
+[node name="Language" type="Node2D" parent="Settings"]
+
+[node name="Label" type="Label" parent="Settings/Language"]
+offset_right = 40.0
+offset_bottom = 23.0
+text = "Language:"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="languageButton" type="Button" parent="Settings/Language"]
+offset_right = 8.0
+offset_bottom = 8.0
+theme_override_styles/focus = SubResource("StyleBoxEmpty_jsqdb")
+text = "English"
 
 [node name="credits" type="Button" parent="."]
 offset_right = 8.0
@@ -54,6 +145,14 @@ offset_bottom = 40.0
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
+
+[node name="credits" type="Label" parent="credits/Panel"]
+modulate = Color(0.435294, 0.435294, 0.435294, 1)
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+text = "Credits"
+vertical_alignment = 1
 
 [node name="creditsLabel" type="Label" parent="credits/Panel"]
 layout_mode = 0
@@ -85,6 +184,7 @@ theme_override_font_sizes/font_size = 20
 text = " ❌ "
 
 [node name="Continue Game" type="Button" parent="."]
+modulate = Color(0, 0.678431, 1, 1)
 offset_right = 8.0
 offset_bottom = 8.0
 theme_override_font_sizes/font_size = 30
@@ -94,6 +194,10 @@ text = "Continue Game"
 texture = ExtResource("2_g8351")
 
 [connection signal="pressed" from="startGameButton" to="." method="_on_start_game_button_pressed"]
+[connection signal="pressed" from="settingsButton" to="." method="_on_settings_button_pressed"]
+[connection signal="pressed" from="Settings/closeButton" to="." method="_on_close_button_pressed"]
+[connection signal="toggled" from="Settings/FPS/CheckButton" to="Settings" method="_on_check_button_toggled"]
+[connection signal="pressed" from="Settings/Difficulty/Button" to="Settings" method="_on_button_pressed"]
 [connection signal="pressed" from="credits" to="." method="_on_credits_pressed"]
 [connection signal="pressed" from="credits/Panel/closeButton" to="." method="_on_close_button_pressed"]
 [connection signal="pressed" from="Continue Game" to="." method="_on_continue_game_pressed"]

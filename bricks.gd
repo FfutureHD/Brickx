@@ -70,7 +70,7 @@ func _process(delta: float) -> void:
 									if get_node("Layer 2").get_child_count() == 0:
 										if get_node("Layer 1").get_child_count() == 0:
 											if get_node("Layer 0").get_child_count() == 0:
-												set_meta("difficulty", get_meta("difficulty") + 1)
+												set_meta("difficulty", get_meta("difficulty") + get_meta("difficultySetting"))
 												generateBricks()
 		for n in 10:
 			get_node("Layer %d" % n).rotation += delta * get_meta("rotation%d" % n)

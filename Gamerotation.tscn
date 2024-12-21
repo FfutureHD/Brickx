@@ -36,6 +36,7 @@ offset_bottom = 300.0
 color = Color(0, 0, 0, 1)
 
 [node name="ColorRect" type="ColorRect" parent="BG"]
+layout_mode = 0
 offset_left = -300.0
 offset_top = -300.0
 offset_right = 300.0
@@ -123,6 +124,7 @@ metadata/rotation6 = 0.0
 metadata/rotation7 = 0.0
 metadata/rotation8 = 0.0
 metadata/rotation9 = 0.0
+metadata/difficultySetting = 1.0
 
 [node name="Layer 0" type="Node2D" parent="Bricks"]
 
@@ -168,6 +170,7 @@ texture = ExtResource("4_tlgx8")
 texture = ExtResource("5_ii0v0")
 
 [node name="Lost" type="Panel" parent="."]
+process_mode = 2
 offset_right = 40.0
 offset_bottom = 40.0
 metadata/lost = false
@@ -202,6 +205,7 @@ offset_right = 40.0
 offset_bottom = 40.0
 
 [node name="Pausedtext" type="Label" parent="Paused"]
+layout_mode = 0
 offset_right = 40.0
 offset_bottom = 23.0
 theme_override_font_sizes/font_size = 30

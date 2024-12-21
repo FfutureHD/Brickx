@@ -89,6 +89,7 @@ func _process(delta: float) -> void:
 		$Points.text = String("Points: %d" % Points)
 
 func lost() -> void:
+	get_tree().paused = true
 	get_parent().get_node("Lost/Losttext").text = String("""Oh no
 	you've lost
 	you got %s points""" % $Points.get_meta("points"))
@@ -105,8 +106,10 @@ func lost() -> void:
 	cfgFile = null
 
 func _on_menu_pressed() -> void:
+	get_tree().paused = false
 	get_tree().change_scene_to_file("res://StartMenu.tscn")
 
 
 func _on_try_again_pressed() -> void:
+	get_tree().paused = false
 	get_tree().change_scene_to_file("res://Gamerotation.tscn")

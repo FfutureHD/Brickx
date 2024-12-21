@@ -3,6 +3,7 @@ extends Node2D
 var saveFile
 var content
 var saveData
+var settings
 var brickData
 
 # Called when the node enters the scene tree for the first time.
@@ -13,6 +14,8 @@ func _ready() -> void:
 	saveFile = FileAccess.open("user://save.cfg", FileAccess.READ)
 	content = saveFile.get_as_text()
 	saveData = JSON.parse_string(content)
+	saveFile = FileAccess.open("user://settings.cfg", FileAccess.READ)
+	settings = JSON.parse_string(saveFile.get_as_text())
 	saveFile = FileAccess.open("user://bricksave.cfg", FileAccess.READ)
 	
 	if content != "":
@@ -20,7 +23,11 @@ func _ready() -> void:
 		saveFile = null
 		_load(saveData)
 	else:
+		$Bricks.set_meta("difficultySetting", settings.difficulty)
+		$Bricks.set_meta("difficulty", settings.difficulty)
 		$Bricks.generateBricks()
+		saveFile = null
+		
 	
 	
 
