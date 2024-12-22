@@ -37,6 +37,10 @@ save=""
 
 pointing/android/enable_pan_and_scale_gestures=true
 
+[internationalization]
+
+locale/translations=PackedStringArray("res://Translations.de.translation", "res://Translations.en.translation", "res://Translations.es.translation", "res://Translations.fr.translation", "res://Translations.it.translation", "res://Translations.ja.translation", "res://Translations.nl.translation", "res://Translations.se.translation")
+
 [layer_names]
 
 2d_physics/layer_1="Player"

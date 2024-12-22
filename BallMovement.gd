@@ -39,9 +39,10 @@ func _ready() -> void:
 func reset() -> void:
 	ballSize = get_meta("ballSize")
 	movementSpeed = get_meta("movementSpeed")
+	get_parent().get_parent().get_node("Countdown").set_meta("start", false)
 	get_parent().position = Vector2(0, 0)
 	get_parent().rotation = 0
-	position = Vector2(0, 30)
+	position = Vector2(0, 100)
 	eingangswinkel = 0
 	_changesize()
 

@@ -14,10 +14,12 @@ func _ready() -> void:
 	get_parent().get_node("Lost").set_meta("lost", false)
 	
 	Lives = $Lives.get_meta("Lives")
-	Points = $Points.get_meta("points")
 	$Lives.text = ""
 	for n in Lives:
 		$Lives.text = String("%s♥️" % $Lives.text)
+	
+	Points = $Points.get_meta("points")
+	$Points.text = tr("Points: %d") % Points
 	
 	Countdown = get_meta("Countdown")
 	
@@ -29,18 +31,12 @@ func _ready() -> void:
 	$Points.position.y = $Points.size.y
 	$Points.modulate.a = 0
 	
+	update_gui(true)
+	
 	get_parent().get_node("Lost").visible = false
-	get_parent().get_node("Lost").size = get_parent().get_node("Lost/Losttext").size + Vector2(40, 40 + get_parent().get_node("Lost/Menu").size.y)
-	get_parent().get_node("Lost/Losttext").position = Vector2(20, 10)
-	get_parent().get_node("Lost").position = -get_parent().get_node("Lost").size / 2
-	get_parent().get_node("Lost/Try Again").position = Vector2(10, get_parent().get_node("Lost").size.y - get_parent().get_node("Lost/Try Again").size.y - 10)
-	get_parent().get_node("Lost/Menu").position = Vector2(get_parent().get_node("Lost").size.x - get_parent().get_node("Lost/Menu").size.x - 10, get_parent().get_node("Lost").size.y - get_parent().get_node("Lost/Menu").size.y - 10)
 	
 	get_parent().get_node("Paused").visible = false
-	get_parent().get_node("Paused").size = get_parent().get_node("Paused/Pausedtext").size + Vector2(20, 20 + get_parent().get_node("Paused/Resume").size.y)
-	get_parent().get_node("Paused").position = -get_parent().get_node("Paused").size / 2
-	get_parent().get_node("Paused/Pausedtext").position = Vector2(10, 5)
-	get_parent().get_node("Paused/Resume").position = Vector2((get_parent().get_node("Paused").size.x - get_parent().get_node("Paused/Resume").size.x) / 2, get_parent().get_node("Paused").size.y - get_parent().get_node("Paused/Resume").size.y - 5)
+	
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -86,16 +82,12 @@ func _process(delta: float) -> void:
 			lost()
 	if $Points.get_meta("points") != Points:
 		Points = $Points.get_meta("points")
-		$Points.text = String("Points: %d" % Points)
+		$Points.text = tr("Points: %d") % Points
 
 func lost() -> void:
 	get_tree().paused = true
-	get_parent().get_node("Lost/Losttext").text = String("""Oh no
-	you've lost
-	you got %s points""" % $Points.get_meta("points"))
-	get_parent().get_node("Lost").size = get_parent().get_node("Lost/Losttext").size + Vector2(40, 40 + get_parent().get_node("Lost/Menu").size.y)
-	get_parent().get_node("Lost/Losttext").position = Vector2(20, 10)
-	get_parent().get_node("Lost").position = -get_parent().get_node("Lost").size / 2
+	get_parent().get_node("Lost/Losttext").text = tr("lost_text") % $Points.get_meta("points")
+	update_gui(false)
 	get_parent().get_node("Lost").visible = true
 	get_parent().get_node("BallTrajectory").hide()
 	get_parent().get_node("Countdown").hide()
@@ -113,3 +105,21 @@ func _on_menu_pressed() -> void:
 func _on_try_again_pressed() -> void:
 	get_tree().paused = false
 	get_tree().change_scene_to_file("res://Gamerotation.tscn")
+	
+func update_gui(onlylost: bool) -> void:
+	
+	if !onlylost:
+		get_parent().get_node("Paused").size = get_parent().get_node("Paused/Pausedtext").size + Vector2(20, 20 + get_parent().get_node("Paused/Resume").size.y)
+		get_parent().get_node("Paused").position = -get_parent().get_node("Paused").size / 2
+		get_parent().get_node("Paused/Pausedtext").position = Vector2(10, 5)
+		get_parent().get_node("Paused/Resume").position = Vector2((get_parent().get_node("Paused").size.x - get_parent().get_node("Paused/Resume").size.x) / 2, get_parent().get_node("Paused").size.y - get_parent().get_node("Paused/Resume").size.y - 5)
+		
+	
+	get_parent().get_node("Lost").size = Vector2(max(get_parent().get_node("Lost/Losttext").size.x + 40, get_parent().get_node("Lost/Menu").size.x + 40 + get_parent().get_node("Lost/Try Again").size.x), get_parent().get_node("Lost/Losttext").size.y + 40 + get_parent().get_node("Lost/Menu").size.y)
+	get_parent().get_node("Lost/Losttext").position = Vector2((get_parent().get_node("Lost").size.x - get_parent().get_node("Lost/Losttext").size.x) / 2, 10)
+	get_parent().get_node("Lost").position = -get_parent().get_node("Lost").size / 2
+	get_parent().get_node("Lost/Try Again").position = Vector2(10, get_parent().get_node("Lost").size.y - get_parent().get_node("Lost/Try Again").size.y - 10)
+	get_parent().get_node("Lost/Menu").position = Vector2(get_parent().get_node("Lost").size.x - get_parent().get_node("Lost/Menu").size.x - 10, get_parent().get_node("Lost/Try Again").position.y)
+	
+	
+	

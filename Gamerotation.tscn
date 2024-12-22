@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://dt37gkonfda6o"]
+[gd_scene load_steps=14 format=3 uid="uid://dt37gkonfda6o"]
 
 [ext_resource type="Script" path="res://saveload.gd" id="1_qdvv5"]
 [ext_resource type="Script" path="res://Plattformrotation.gd" id="2_5ljwh"]
@@ -7,6 +7,7 @@
 [ext_resource type="Script" path="res://Countdown.gd" id="4_2c1jh"]
 [ext_resource type="Texture2D" uid="uid://ccr7ymw0auavr" path="res://textures/Ball/ball_6x.png" id="4_tlgx8"]
 [ext_resource type="Texture2D" uid="uid://bbgbuq4b71ac3" path="res://textures/watch_overlay.png" id="5_ii0v0"]
+[ext_resource type="Script" path="res://paused.gd" id="8_t2tbi"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_afldp"]
 size = Vector2(10, 5)
@@ -95,7 +96,7 @@ text = "
 horizontal_alignment = 1
 vertical_alignment = 1
 autowrap_mode = 2
-metadata/Lives = 3
+metadata/Lives = 0
 
 [node name="Points" type="Label" parent="Countdown"]
 layout_mode = 0
@@ -201,8 +202,10 @@ theme_override_font_sizes/font_size = 20
 text = "Try Again"
 
 [node name="Paused" type="Panel" parent="."]
+process_mode = 3
 offset_right = 40.0
 offset_bottom = 40.0
+script = ExtResource("8_t2tbi")
 
 [node name="Pausedtext" type="Label" parent="Paused"]
 layout_mode = 0
@@ -212,7 +215,6 @@ theme_override_font_sizes/font_size = 30
 text = "Game is Paused"
 
 [node name="Resume" type="Button" parent="Paused"]
-process_mode = 2
 layout_mode = 0
 offset_right = 8.0
 offset_bottom = 8.0

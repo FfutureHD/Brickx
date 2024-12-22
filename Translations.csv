@@ -1,0 +1,46 @@
+﻿key;en;de;fr;es;nl;it;ja;se
+Menu;Menu;Menü;Menu;Menú;Menu;Menu;メニュー;Meny
+New Game;New Game;Neues Spiel;Nouveau Jeu;Nuevo Juego;Nieuw Spel;Nuovo Gioco;新しいゲーム;Nytt spel
+Settings;Settings;Einstellungen;Paramètres;Ajustes;Instellingen;Impostazioni;設定;Inställningar
+FPS (might impact battery):;FPS (might impact battery):;FPS (Batterieauswirkung):;FPS (impact de la batterie) :;FPS (puede afectar la batería):;FPS (batterij impact):;FPS (impatto sulla batteria):;FPS（バッテリーへの影響）:;FPS (kan påverka batteriet):
+Difficulty (is applied in next game):;Difficulty (next game):;Schwierigkeit (Nächstes Spiel):;Difficulté (prochain jeu) :;Dificultad (próximo juego):;Moeilijkheidsgraad (volgende spel):;Difficoltà (prossima gioco):;難易度 (次のゲーム):;Svårighet (nästa match):
+Beginner;Beginner;Anfänger;Débutant;Principiante;Beginner;Principiante;初心者;Nybörjare
+Medium;Medium;Mittel;Moyen;Media;Medium;Medio;中級;Medium
+Extreme;Extreme;Extrem;Extrême;Extrema;Extreem;Estremo;上級;Extrem
+Language:;Language:;Sprache:;Langue :;Idioma:;Taal:;Lingua:;言語:;Språk:
+English;English;Englisch;Anglais;Inglés;Engels;Inglese;英語;Engelska
+German;German;Deutsch;Allemand;Alemán;Duits;Tedesco;ドイツ語;Tyska
+French;French;Französisch;Français;Francés;Frans;Francese;フランス語;Franska
+Spanish;Spanish;Spanisch;Espagnol;Español;Spaans;Spagnolo;スペイン語;Spanska
+Dutch;Dutch;Niederländisch;Néerlandais;Holandés;Nederlands;Olandese;オランダ語;Holländska
+Italian;Italian;Italienisch;Italien;Italiano;Italiaans;Italiano;イタリア語;Italienska
+Japanese;Japanese;Japanisch;Japonais;Japonés;Japans;Giapponese;日本語;Japanska
+Swedish;Swedish;Schwedisch;Suédois;Sueco;Zweeds;Svedese;スウェーデン語;Svenska
+credits;credits;credits;crédits;créditos;credits;crediti;クレジット;credits
+Credits;Credits;Credits;Crédits;Créditos;Credits;Crediti;クレジット;Credits
+"Designed and programmed
+by
+Fabrice Bäder";"Designed and programmed
+by
+Fabrice Bäder";"Entworfen und programmiert
+von
+Fabrice Bäder";"Conçu et programmé
+par
+Fabrice bäder";"Diseñado y programado
+por
+Fabrice Bäder";"Ontworpen en geprogrammeerd
+door
+Fabrice Bäder";"Progettato e programmato
+da
+Fabrice Bäder";"Fabrice Bäder
+による
+デザインとプログラム";"Designad och programmerad
+av
+Fabrice Bäder"
+Continue Game;Continue Game;Spiel fortsetzen;Continuer la partie;Continuar juego;Doorgaan met spel;Continua la partita;ゲームを続行;Fortsätt spelet
+Start;Go;Los;Allez;Ir;Gaan;Vai;囲碁;Gå
+Points: %d;Points: %d;Punkte: %d;Points: %d;Puntos: %d;Punten: %d;Punti: %d;ポイント: %d;Poäng: %d
+lost_text;oh no\nyou've lost\nyou got %d points;Oh Nein\nDu hast verloren\nErreichte Punkte: %d;oh non\nvous avez perdu\npoints obtenu: %d;oh no\nhas perdido\npuntos conseguidos: %d;oh nee\nje hebt verloren\nbehaalde punten: %d;oh no\nhai perso\npunti ottenuti: %d;なんてこった\nあなたは負けました\n達成ポイント: %d;nej då\ndu har förlorat\ndu fick %d poäng
+Try Again;Try Again;Neustarten;Réessayer;reanudar;Opnieuw opstarten;riprova;もう一度やり直してください;Försök igen
+Game is Paused;Game is Paused;Spiel ist pausiert;Le jeu est en pause;El juego está en pausa;Spel is gepauzeerd;La partita è in pausa;ゲームは一時停止中です;Spelet är pausat
+Resume;Resume;Fortsetzen;Reprendre;Reanudar;Hervatten;Riprendi;再開する;Resume

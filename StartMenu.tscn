@@ -51,14 +51,14 @@ modulate = Color(0.635294, 0.470588, 1, 1)
 offset_right = 8.0
 offset_bottom = 8.0
 theme_override_font_sizes/font_size = 30
-text = "   Settings   "
+text = "Settings"
 
 [node name="Settings" type="Panel" parent="."]
 offset_right = 40.0
 offset_bottom = 40.0
 script = ExtResource("2_7g2uj")
 metadata/Difficulty = 1
-metadata/Language = 0
+metadata/Language = 1
 
 [node name="Bar" type="Panel" parent="Settings"]
 layout_mode = 0
@@ -198,6 +198,7 @@ texture = ExtResource("2_g8351")
 [connection signal="pressed" from="Settings/closeButton" to="." method="_on_close_button_pressed"]
 [connection signal="toggled" from="Settings/FPS/CheckButton" to="Settings" method="_on_check_button_toggled"]
 [connection signal="pressed" from="Settings/Difficulty/Button" to="Settings" method="_on_button_pressed"]
+[connection signal="pressed" from="Settings/Language/languageButton" to="Settings" method="_on_language_button_pressed"]
 [connection signal="pressed" from="credits" to="." method="_on_credits_pressed"]
 [connection signal="pressed" from="credits/Panel/closeButton" to="." method="_on_close_button_pressed"]
 [connection signal="pressed" from="Continue Game" to="." method="_on_continue_game_pressed"]

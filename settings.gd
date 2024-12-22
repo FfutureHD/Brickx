@@ -9,7 +9,7 @@ func _ready() -> void:
 		var defaultSettings = {
 			"fps": 60,
 			"difficulty": 1,
-			"language": 0
+			"language": 1
 		}
 		var defset = FileAccess.open("user://settings.cfg", FileAccess.WRITE)
 		defset.store_string(JSON.stringify(defaultSettings))
@@ -37,6 +37,11 @@ func _ready() -> void:
 			$Difficulty/Button.text = "Extreme"
 			$Difficulty/Button.modulate = Color(200, 0, 0)
 	
+	match settings.language:
+		1.0:
+			set_meta("Language", 1)
+			TranslationServer.set_locale("en")
+			$Language/languageButton.text = tr("English")
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -76,3 +81,41 @@ func save_settings() -> void:
 	var settFile = FileAccess.open("user://settings.cfg", FileAccess.WRITE)
 	settFile.store_string(JSON.stringify(settings))
 	settFile = null
+
+
+func _on_language_button_pressed() -> void:
+	match get_meta("Language"):
+		1:
+			set_meta("Language", 2)
+			TranslationServer.set_locale("de")
+			$Language/languageButton.text = tr("German")
+		2:
+			set_meta("Language", 3)
+			TranslationServer.set_locale("fr")
+			$Language/languageButton.text = tr("French")
+		3:
+			set_meta("Language", 4)
+			TranslationServer.set_locale("es")
+			$Language/languageButton.text = tr("Spanish")
+		4:
+			set_meta("Language", 5)
+			TranslationServer.set_locale("nl")
+			$Language/languageButton.text = tr("Dutch")
+		5:
+			set_meta("Language", 6)
+			TranslationServer.set_locale("it")
+			$Language/languageButton.text = tr("Italian")
+		6:
+			set_meta("Language", 7)
+			TranslationServer.set_locale("ja")
+			$Language/languageButton.text = tr("Japanese")
+		7:
+			set_meta("Language", 8)
+			TranslationServer.set_locale("se")
+			$Language/languageButton.text = tr("Swedish")
+		8:
+			set_meta("Language", 1)
+			TranslationServer.set_locale("en")
+			$Language/languageButton.text = tr("English")
+	
+	get_parent().upddate_gui()
