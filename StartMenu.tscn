@@ -74,6 +74,7 @@ text = "Settings"
 vertical_alignment = 1
 
 [node name="closeButton" type="Button" parent="Settings"]
+layout_mode = 0
 offset_right = 46.0
 offset_bottom = 36.0
 theme_override_font_sizes/font_size = 20

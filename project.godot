@@ -39,7 +39,7 @@ pointing/android/enable_pan_and_scale_gestures=true
 
 [internationalization]
 
-locale/translations=PackedStringArray("res://Translations.de.translation", "res://Translations.en.translation", "res://Translations.es.translation", "res://Translations.fr.translation", "res://Translations.it.translation", "res://Translations.ja.translation", "res://Translations.nl.translation", "res://Translations.se.translation")
+locale/translations=PackedStringArray("res://translations/Translations.de.translation", "res://translations/Translations.en.translation", "res://translations/Translations.es.translation", "res://translations/Translations.fr.translation", "res://translations/Translations.it.translation", "res://translations/Translations.ja.translation", "res://translations/Translations.nl.translation", "res://translations/Translations.se.translation")
 
 [layer_names]
 
