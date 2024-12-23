@@ -9,16 +9,16 @@ var brickData
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	
-	##write both save files to variables:
+	##write save files to variables:
 	
 	saveFile = FileAccess.open("user://save.cfg", FileAccess.READ)
 	content = saveFile.get_as_text()
-	saveData = JSON.parse_string(content)
 	saveFile = FileAccess.open("user://settings.cfg", FileAccess.READ)
 	settings = JSON.parse_string(saveFile.get_as_text())
 	saveFile = FileAccess.open("user://bricksave.cfg", FileAccess.READ)
 	
 	if content != "":
+		saveData = JSON.parse_string(content)
 		loadBricks(saveFile, saveData)
 		saveFile = null
 		_load(saveData)
@@ -30,12 +30,6 @@ func _ready() -> void:
 		
 	
 	
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass
-
 
 func save() -> void:
 	
@@ -121,7 +115,6 @@ func loadBricks(brickdata, savedata) -> void:
 					print("JSON Parse Error: ", json.get_error_message(), " in ", json_string, " at line ", json.get_error_line())
 					continue
 				var node_data = json.data
-				var new_object = load(node_data["filename"]).instantiate()
 				var newBrick = loadedBrick.instantiate()
 				newBrick.position = Vector2(node_data["pos_x"], node_data["pos_y"])
 				newBrick.rotation = node_data["rotation"]

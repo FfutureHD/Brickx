@@ -47,6 +47,7 @@ locale/translations=PackedStringArray("res://translations/Translations.de.transl
 2d_physics/layer_2="Plattform middle"
 2d_physics/layer_3="Plattform right"
 2d_physics/layer_4="Plattform left"
+2d_physics/layer_5="Near Platform"
 
 [rendering]
 

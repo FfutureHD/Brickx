@@ -72,9 +72,6 @@ func _ready() -> void:
 			$Language/languageButton.text = "Swedish"
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass
-	#print("Hight: %d, Position: %d" % [$Difficulty/Button.size.y, $Difficulty/Button.position.y])
 
 func _on_check_button_toggled(toggled_on: bool) -> void:
 	if toggled_on:

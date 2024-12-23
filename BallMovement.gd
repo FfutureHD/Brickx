@@ -1,15 +1,11 @@
 extends CharacterBody2D
 
-var countdownFloat: float = 0.5
 var movementSpeed: float
 var ballSize:float 
 
 var winkelAddierung: float 
 
 var ballScale: float
-
-var collisionBuffer: float = 0.01
-var ableToCollide = true
 
 var trajectoryLenght: float
 var trajectoryX: float
@@ -19,6 +15,7 @@ var trajectoryAngle: float
 var platformAngle: float
 var angleOut: float
 
+var nearPlatform: bool
 
 var eingangswinkel
 
@@ -33,6 +30,7 @@ func _ready() -> void:
 	get_parent().rotation = 0
 	position = Vector2(0, 100)
 	eingangswinkel = get_meta("eingangswinkel")
+	nearPlatform = false
 	_changesize()
 	
 
@@ -44,6 +42,7 @@ func reset() -> void:
 	get_parent().rotation = 0
 	position = Vector2(0, 100)
 	eingangswinkel = 0
+	nearPlatform = false
 	_changesize()
 
 func _changesize() -> void:
@@ -97,11 +96,6 @@ func _process(delta: float) -> void:
 		position.x += ((trajectoryX / trajectoryLenght) * delta * movementSpeed)
 		position.y += ((trajectoryY / trajectoryLenght) * delta * movementSpeed)
 	
-	if ! ableToCollide:
-		countdownFloat += delta
-		if countdownFloat >= collisionBuffer:
-			ableToCollide = true
-			countdownFloat = 0
 	
 	if (sqrt((global_position.x - get_parent().get_parent().position.x) ** 2 + (global_position.y - get_parent().get_parent().position.y) ** 2) >= 200):
 		##TODO check if other Balls are still in the game?
@@ -113,10 +107,11 @@ func _process(delta: float) -> void:
 
 
 func _on_plattform_body_entered(body: Node2D) -> void:
-	if ableToCollide:
-		if body.name == "Ball":
+	if nearPlatform:
+		
+		if body.get_collision_layer() == 1:
 			
-			ableToCollide = false
+			nearPlatform = false
 			
 			platformAngle = atan2(global_position.y - get_parent().get_parent().position.y, global_position.x - get_parent().get_parent().position.x)
 			eingangswinkel = 2 * platformAngle - eingangswinkel
@@ -132,13 +127,11 @@ func _on_plattform_body_entered(body: Node2D) -> void:
 
 
 func _on_plattform_rechts_body_entered(body: Node2D) -> void:
-	if ableToCollide:
+	if nearPlatform:
 		
-		ableToCollide = false
-		
-		if body.name == "Ball":
+		if body.get_collision_layer() == 1:
 			
-			ableToCollide = false
+			nearPlatform = false
 			
 			platformAngle = atan2(global_position.y - get_parent().get_parent().position.y, global_position.x - get_parent().get_parent().position.x)
 			eingangswinkel = (2 * platformAngle - eingangswinkel)  - winkelAddierung
@@ -154,13 +147,11 @@ func _on_plattform_rechts_body_entered(body: Node2D) -> void:
 
 
 func _on_plattform_links_body_entered(body: Node2D) -> void:
-	if ableToCollide:
+	if nearPlatform:
 		
-		ableToCollide = false
-		
-		if body.name == "Ball":
+		if body.get_collision_layer() == 1:
 			
-			ableToCollide = false
+			nearPlatform = false
 			
 			platformAngle = atan2(global_position.y - get_parent().get_parent().position.y, global_position.x - get_parent().get_parent().position.x)
 			eingangswinkel = (2 * platformAngle - eingangswinkel)  + winkelAddierung
@@ -185,3 +176,8 @@ func updateFromSave(trajposx, trajposy, trajrot, posx, posy, size, speed, winkel
 	set_meta("eingangswinkel", winkel)
 	eingangswinkel = winkel
 	
+
+
+func _on_near_platform_body_entered(body: Node2D) -> void:
+	if body.get_collision_layer() == 1:
+		nearPlatform = true

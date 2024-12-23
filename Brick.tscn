@@ -4,6 +4,8 @@
 
 [node name="Brick" type="Node2D" groups=["save"]]
 script = ExtResource("1_2yeqr")
+metadata/abpraller = 0
+metadata/hardness = 0
 
 [node name="Area2D" type="Area2D" parent="."]
 

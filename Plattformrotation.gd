@@ -14,9 +14,9 @@ func _ready() -> void:
 func _input(event:InputEvent) -> void:
 	if event is InputEventMouseButton:
 		if event.button_index == MOUSE_BUTTON_WHEEL_UP:
-			rotation_degrees += rotaryspeed / 20
+			rotation_degrees += rotaryspeed / 20.0
 		if event.button_index == MOUSE_BUTTON_WHEEL_DOWN:
-			rotation_degrees -= rotaryspeed / 20
+			rotation_degrees -= rotaryspeed / 20.0
 
 func _physics_process(delta: float) -> void:
 	
@@ -34,9 +34,13 @@ func updateSize() -> void:
 	for n in range(0, 8):
 		polygonpoints[n] = Vector2(polygonpoints[n].x * platformSize, polygonpoints[n].y)
 	$Plattform/Polygon2D.polygon = polygonpoints
-	$Plattform/Mitte.shape.extents = Vector2(10 * platformSize/2, 3 + platformSize)
+	$Plattform/Mitte.shape.extents = Vector2(10 * platformSize/2, platformSize/2 + 3)
+	$Plattform/Mitte.position.y = 180 - platformSize/2
 	$"Plattform/Plattform rechts/Rechts".position.x = 7.5 * platformSize
-	$"Plattform/Plattform rechts/Rechts".shape.extents = Vector2(5 * platformSize/2, 3 + platformSize)
+	$"Plattform/Plattform rechts/Rechts".shape.extents = Vector2(5 * platformSize/2, platformSize/2 + 3)
+	$"Plattform/Plattform rechts/Rechts".position.y = 180 - platformSize/2
 	$"Plattform/Plattform links/Links".position.x = -7.5 * platformSize
-	$"Plattform/Plattform links/Links".shape.extents = Vector2(5 * platformSize/2, 3 + platformSize)
+	$"Plattform/Plattform links/Links".shape.extents = Vector2(5 * platformSize/2, platformSize/2 + 3)
+	$"Plattform/Plattform links/Links".position.y = 180 - platformSize/2
+	$Plattform/NearPlatform/CollisionShape2D.shape.extents = Vector2(15 * platformSize + 15, 5 * platformSize)
 	

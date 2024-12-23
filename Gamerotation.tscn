@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://dt37gkonfda6o"]
+[gd_scene load_steps=15 format=3 uid="uid://dt37gkonfda6o"]
 
 [ext_resource type="Script" path="res://saveload.gd" id="1_qdvv5"]
 [ext_resource type="Script" path="res://Plattformrotation.gd" id="2_5ljwh"]
@@ -17,6 +17,9 @@ size = Vector2(5, 5)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0q686"]
 size = Vector2(5, 5)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_mp1fb"]
+size = Vector2(40, 10)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_rm76p"]
 radius = 80.0
@@ -37,9 +40,8 @@ offset_bottom = 300.0
 color = Color(0, 0, 0, 1)
 
 [node name="Plattformrotation" type="Node2D" parent="."]
-rotation = 6.28319
 script = ExtResource("2_5ljwh")
-metadata/platformSize = 5
+metadata/platformSize = 3
 
 [node name="Plattform" type="Area2D" parent="Plattformrotation"]
 collision_layer = 2
@@ -65,6 +67,13 @@ collision_layer = 8
 [node name="Links" type="CollisionShape2D" parent="Plattformrotation/Plattform/Plattform links"]
 position = Vector2(-7.5, 180)
 shape = SubResource("RectangleShape2D_0q686")
+
+[node name="NearPlatform" type="Area2D" parent="Plattformrotation/Plattform"]
+collision_layer = 256
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Plattformrotation/Plattform/NearPlatform"]
+position = Vector2(0, 175)
+shape = SubResource("RectangleShape2D_mp1fb")
 
 [node name="Countdown" type="Label" parent="."]
 offset_left = -40.0
@@ -218,6 +227,7 @@ text = "Resume"
 [connection signal="body_entered" from="Plattformrotation/Plattform" to="BallTrajectory/Ball" method="_on_plattform_body_entered"]
 [connection signal="body_entered" from="Plattformrotation/Plattform/Plattform rechts" to="BallTrajectory/Ball" method="_on_plattform_rechts_body_entered"]
 [connection signal="body_entered" from="Plattformrotation/Plattform/Plattform links" to="BallTrajectory/Ball" method="_on_plattform_links_body_entered"]
+[connection signal="body_entered" from="Plattformrotation/Plattform/NearPlatform" to="BallTrajectory/Ball" method="_on_near_platform_body_entered"]
 [connection signal="pressed" from="Lost/Menu" to="Countdown" method="_on_menu_pressed"]
 [connection signal="pressed" from="Lost/Try Again" to="Countdown" method="_on_try_again_pressed"]
 [connection signal="pressed" from="Paused/Resume" to="Paused" method="_on_resume_pressed"]
