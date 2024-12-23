@@ -24,11 +24,12 @@ func _ready() -> void:
 	Countdown = get_meta("Countdown")
 	
 	text = str(Countdown)
-	$Lives.position.x = $Lives.size.x / 2
+	$Lives.position.x = (size.x - $Lives.size.x) / 2
 	$Lives.position.y = 0
 	$Lives.modulate.a = 0
 	$Points.position.x = 0
 	$Points.position.y = $Points.size.y
+	$Points.position.x = (size.x - $Points.size.x) / 2
 	$Points.modulate.a = 0
 	
 	update_gui(false)
@@ -77,12 +78,14 @@ func _process(delta: float) -> void:
 			$Lives.text = ""
 			for n in Lives:
 				$Lives.text = String("%s♥️" % $Lives.text)
-			$Lives.position.x = $Lives.size.x / 2
+			$Lives.position.x = (size.x - $Lives.size.x) / 2
 		else:
 			lost()
 	if $Points.get_meta("points") != Points:
 		Points = $Points.get_meta("points")
 		$Points.text = tr("Points: %d") % Points
+		$Points.position.x = (size.x - $Points.size.x) / 2
+
 
 func lost() -> void:
 	get_tree().paused = true

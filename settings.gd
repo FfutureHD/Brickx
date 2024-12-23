@@ -24,15 +24,15 @@ func _ready() -> void:
 		$FPS/CheckButton.button_pressed = false
 	match settings.difficulty:
 		1.0:
-			set_meta("Difficulty", 1)
+			set_meta("difficultySetting", 1)
 			$Difficulty/Button.text = "Beginner"
 			$Difficulty/Button.modulate = Color(0, 200, 0)
 		2.0:
-			set_meta("Difficulty", 2)
+			set_meta("difficultySetting", 2)
 			$Difficulty/Button.text = "Medium"
 			$Difficulty/Button.modulate = Color(255, 200, 0)
 		3.0:
-			set_meta("Difficulty", 3)
+			set_meta("difficultySetting", 3)
 			$Difficulty/Button.text = "Extreme"
 			$Difficulty/Button.modulate = Color(200, 0, 0)
 		
@@ -86,15 +86,15 @@ func _on_button_pressed() -> void:
 	match get_meta("Difficulty"):
 		1:
 			$Difficulty/Button.modulate = Color(255, 200, 0)
-			set_meta("Difficulty", 2)
+			set_meta("difficultySetting", 2)
 			$Difficulty/Button.text = "Medium"
 		2:
 			$Difficulty/Button.modulate = Color(200, 0, 0)
-			set_meta("Difficulty", 3)
+			set_meta("difficultySetting", 3)
 			$Difficulty/Button.text = "Extreme"
 		3:
 			$Difficulty/Button.modulate = Color(0, 200, 0)
-			set_meta("Difficulty", 1)
+			set_meta("difficultySetting", 1)
 			$Difficulty/Button.text = "Beginner"
 	
 	$Difficulty/Button.reset_size()

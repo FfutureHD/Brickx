@@ -5,7 +5,7 @@
 [node name="Brick" type="Node2D" groups=["save"]]
 script = ExtResource("1_2yeqr")
 metadata/abpraller = 0
-metadata/hardness = 1
+metadata/hardness = 0
 
 [node name="Area2D" type="Area2D" parent="."]
 
@@ -14,5 +14,10 @@ polygon = PackedVector2Array(4.5, 2, 14, 0, 15, 5, 8, 6.5, 0, 7, -8, 6.5, -15, 5
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Area2D"]
 polygon = PackedVector2Array(4.5, 2, 14, 0, 15, 5, 8, 6.5, 0, 7, -8, 6.5, -15, 5, -14, 0, -4.5, 2)
+
+[node name="Line2D" type="Line2D" parent="Area2D"]
+points = PackedVector2Array(4.5, 2, 14, 0, 15, 5, 8, 6.5, 0, 7, -8, 6.5, -15, 5, -14, 0, -4.5, 2, 4.5, 2)
+width = 2.0
+default_color = Color(0, 0, 0, 0)
 
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]

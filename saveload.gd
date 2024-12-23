@@ -24,7 +24,7 @@ func _ready() -> void:
 		_load(saveData)
 	else:
 		$Bricks.set_meta("difficultySetting", settings.difficulty)
-		$Bricks.set_meta("difficulty", settings.difficulty)
+		#$Bricks.set_meta("difficulty", settings.difficulty)
 		$Bricks.generateBricks()
 		saveFile = null
 		
