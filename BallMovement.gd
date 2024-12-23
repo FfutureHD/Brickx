@@ -33,12 +33,14 @@ func _ready() -> void:
 func reset() -> void:
 	ballSize = get_meta("ballSize")
 	movementSpeed = get_meta("movementSpeed")
+	set_meta("nearBrick", false)
 	get_parent().get_parent().get_node("Countdown").set_meta("start", false)
 	get_parent().position = Vector2(0, 0)
 	get_parent().get_parent().get_node("Plattformrotation").rotation = 0
 	get_parent().rotation = 0
 	position = Vector2(0, 180 - 2 * ballSize)
 	eingangswinkel = 0
+	set_meta("eingangswinkel", 0)
 	nearPlatform = false
 	_changesize()
 
@@ -110,6 +112,8 @@ func _on_plattform_body_entered(body: Node2D) -> void:
 			
 			nearPlatform = false
 			
+			eingangswinkel = get_meta("eingangswinkel")
+			
 			platformAngle = atan2(global_position.y - get_parent().get_parent().position.y, global_position.x - get_parent().get_parent().position.x)
 			eingangswinkel = 2 * platformAngle - eingangswinkel
 			while eingangswinkel >= 2 * PI:
@@ -130,6 +134,8 @@ func _on_plattform_rechts_body_entered(body: Node2D) -> void:
 			
 			nearPlatform = false
 			
+			eingangswinkel = get_meta("eingangswinkel")
+			
 			platformAngle = atan2(global_position.y - get_parent().get_parent().position.y, global_position.x - get_parent().get_parent().position.x)
 			eingangswinkel = (2 * platformAngle - eingangswinkel)  - winkelAddierung
 			while eingangswinkel >= 2 * PI:
@@ -149,6 +155,8 @@ func _on_plattform_links_body_entered(body: Node2D) -> void:
 		if body.get_collision_layer() == 1:
 			
 			nearPlatform = false
+			
+			eingangswinkel = get_meta("eingangswinkel")
 			
 			platformAngle = atan2(global_position.y - get_parent().get_parent().position.y, global_position.x - get_parent().get_parent().position.x)
 			eingangswinkel = (2 * platformAngle - eingangswinkel)  + winkelAddierung

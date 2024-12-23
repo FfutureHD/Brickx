@@ -24,7 +24,11 @@ func _ready() -> void:
 		_load(saveData)
 	else:
 		$Bricks.set_meta("difficultySetting", settings.difficulty)
-		#$Bricks.set_meta("difficulty", settings.difficulty)
+		$Bricks.set_meta("difficulty", settings.difficulty)
+		
+		$BallTrajectory/Ball.set_meta("movementSpeed",0.64 *  $BallTrajectory/Ball.get_meta("movementSpeed") / (sqrt(0.64) ** settings.difficulty))
+		
+		
 		$Bricks.generateBricks()
 		saveFile = null
 		

@@ -43,7 +43,15 @@ func generateBricks() -> void:
 	
 	if adjustvariables:
 		adjustvariables = false
-		get_parent().get_node("BallTrajectory/Ball").set_meta("movementSpeed", get_parent().get_node("BallTrajectory/Ball").get_meta("movementSpeed") * 1.1)
+		match get_meta("difficultySetting"):
+			1.0:
+				get_parent().get_node("BallTrajectory/Ball").set_meta("movementSpeed", get_parent().get_node("BallTrajectory/Ball").get_meta("movementSpeed") * 1.125)
+			2.0:
+				get_parent().get_node("BallTrajectory/Ball").set_meta("movementSpeed", get_parent().get_node("BallTrajectory/Ball").get_meta("movementSpeed") * 1.2)
+			3.0:
+				get_parent().get_node("BallTrajectory/Ball").set_meta("movementSpeed", get_parent().get_node("BallTrajectory/Ball").get_meta("movementSpeed") * 1.2)
+			
+		
 		get_parent().get_node("Plattformrotation").set_meta("platformSize", get_parent().get_node("Plattformrotation").get_meta("platformSize") * 0.9)
 		get_parent().get_node("BallTrajectory/Ball").set_meta("ballSize", get_parent().get_node("BallTrajectory/Ball").get_meta("ballSize") * 15 / 16)
 	
