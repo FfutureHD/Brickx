@@ -41,7 +41,7 @@ color = Color(0, 0, 0, 1)
 
 [node name="Plattformrotation" type="Node2D" parent="."]
 script = ExtResource("2_5ljwh")
-metadata/platformSize = 3
+metadata/platformSize = 5
 
 [node name="Plattform" type="Area2D" parent="Plattformrotation"]
 collision_layer = 2

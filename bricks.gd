@@ -48,13 +48,14 @@ func generateBricks() -> void:
 			var newBrick = loadedBrick.instantiate()
 			newBrick.position = Vector2(radius * sin(circlePosition), radius * cos(circlePosition))
 			newBrick.rotation = - circlePosition
+			
+			##if (int(randomdifficulty) + n * m %x == 0){
+			##newBrick.set_meta("hardness", 2)
+			##newBrick.get_node("Area2D/Polygon2D").color = Color.RED
+			##}
+			
 			get_node("Layer %d" % n).add_child(newBrick)
-			##if (randomdifficulty + n * m)
-			##position.x = radius * sin(circlePosition)
-			##position.y = radius * cos(circlePosition)
-			##rotation = rad_to_deg(circleposition) + 90
-			##hight = layerHight
-			##width = layerHight * 2 * PI / brickNumber[n] - abstand
+			
 	
 	
 # Called every frame. 'delta' is the elapsed time since the previous frame.
