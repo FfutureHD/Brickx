@@ -36,14 +36,6 @@ offset_right = 300.0
 offset_bottom = 300.0
 color = Color(0, 0, 0, 1)
 
-[node name="ColorRect" type="ColorRect" parent="BG"]
-layout_mode = 0
-offset_left = -300.0
-offset_top = -300.0
-offset_right = 300.0
-offset_bottom = 300.0
-color = Color(0, 0, 0, 1)
-
 [node name="Plattformrotation" type="Node2D" parent="."]
 rotation = 6.28319
 script = ExtResource("2_5ljwh")
@@ -206,6 +198,7 @@ process_mode = 3
 offset_right = 40.0
 offset_bottom = 40.0
 script = ExtResource("8_t2tbi")
+metadata/paused = false
 
 [node name="Pausedtext" type="Label" parent="Paused"]
 layout_mode = 0
@@ -215,6 +208,7 @@ theme_override_font_sizes/font_size = 30
 text = "Game is Paused"
 
 [node name="Resume" type="Button" parent="Paused"]
+process_mode = 3
 layout_mode = 0
 offset_right = 8.0
 offset_bottom = 8.0
@@ -226,4 +220,4 @@ text = "Resume"
 [connection signal="body_entered" from="Plattformrotation/Plattform/Plattform links" to="BallTrajectory/Ball" method="_on_plattform_links_body_entered"]
 [connection signal="pressed" from="Lost/Menu" to="Countdown" method="_on_menu_pressed"]
 [connection signal="pressed" from="Lost/Try Again" to="Countdown" method="_on_try_again_pressed"]
-[connection signal="pressed" from="Paused/Resume" to="Plattformrotation" method="_on_resume_pressed"]
+[connection signal="pressed" from="Paused/Resume" to="Paused" method="_on_resume_pressed"]

@@ -31,7 +31,7 @@ func _ready() -> void:
 	$Points.position.y = $Points.size.y
 	$Points.modulate.a = 0
 	
-	update_gui(true)
+	update_gui(false)
 	
 	get_parent().get_node("Lost").visible = false
 	
@@ -87,7 +87,7 @@ func _process(delta: float) -> void:
 func lost() -> void:
 	get_tree().paused = true
 	get_parent().get_node("Lost/Losttext").text = tr("lost_text") % $Points.get_meta("points")
-	update_gui(false)
+	update_gui(true)
 	get_parent().get_node("Lost").visible = true
 	get_parent().get_node("BallTrajectory").hide()
 	get_parent().get_node("Countdown").hide()

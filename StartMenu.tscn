@@ -4,17 +4,35 @@
 [ext_resource type="Script" path="res://settings.gd" id="2_7g2uj"]
 [ext_resource type="Texture2D" uid="uid://bbgbuq4b71ac3" path="res://textures/watch_overlay.png" id="2_g8351"]
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_6yymx"]
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_g0std"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mayaj"]
-bg_color = Color(0, 0, 0, 0.2)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ebgwo"]
-bg_color = Color(0, 0, 0, 0.2)
-
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_jsqdb"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_mlt1j"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ubp2s"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(0, 0, 0, 0.27451)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+corner_detail = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ab7vd"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(0, 0, 0, 0.6)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+corner_detail = 5
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_6yymx"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ail1g"]
 
@@ -80,11 +98,50 @@ offset_bottom = 36.0
 theme_override_font_sizes/font_size = 20
 text = " ❌ "
 
+[node name="Language" type="Node2D" parent="Settings"]
+
+[node name="Label" type="Label" parent="Settings/Language"]
+offset_right = 40.0
+offset_bottom = 23.0
+size_flags_horizontal = 4
+text = "Language:"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="languageButton" type="Button" parent="Settings/Language"]
+offset_right = 8.0
+offset_bottom = 8.0
+theme_override_styles/focus = SubResource("StyleBoxEmpty_jsqdb")
+text = "English"
+
+[node name="Difficulty" type="Node2D" parent="Settings"]
+
+[node name="Label" type="Label" parent="Settings/Difficulty"]
+offset_right = 267.0
+offset_bottom = 23.0
+size_flags_horizontal = 4
+text = "Difficulty (is applied in next game):"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Button" type="Button" parent="Settings/Difficulty"]
+custom_minimum_size = Vector2(0, 31)
+offset_right = 70.0
+offset_bottom = 31.0
+theme_override_styles/focus = SubResource("StyleBoxEmpty_mlt1j")
+theme_override_styles/hover = SubResource("StyleBoxFlat_ubp2s")
+theme_override_styles/normal = SubResource("StyleBoxFlat_ab7vd")
+text = "Beginner"
+
 [node name="FPS" type="Node2D" parent="Settings"]
 
 [node name="Label" type="Label" parent="Settings/FPS"]
-offset_right = 40.0
-offset_bottom = 23.0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
 text = "FPS (might impact battery):"
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -96,39 +153,6 @@ offset_bottom = 81.0
 theme_override_styles/focus = SubResource("StyleBoxEmpty_6yymx")
 button_pressed = true
 text = "60 FPS"
-
-[node name="Difficulty" type="Node2D" parent="Settings"]
-
-[node name="Label" type="Label" parent="Settings/Difficulty"]
-offset_right = 40.0
-offset_bottom = 23.0
-text = "Difficulty (is applied in next game):"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="Button" type="Button" parent="Settings/Difficulty"]
-custom_minimum_size = Vector2(80, 0)
-offset_right = 80.0
-offset_bottom = 31.0
-theme_override_styles/focus = SubResource("StyleBoxEmpty_g0std")
-theme_override_styles/hover = SubResource("StyleBoxFlat_mayaj")
-theme_override_styles/normal = SubResource("StyleBoxFlat_ebgwo")
-text = "Beginner"
-
-[node name="Language" type="Node2D" parent="Settings"]
-
-[node name="Label" type="Label" parent="Settings/Language"]
-offset_right = 40.0
-offset_bottom = 23.0
-text = "Language:"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="languageButton" type="Button" parent="Settings/Language"]
-offset_right = 8.0
-offset_bottom = 8.0
-theme_override_styles/focus = SubResource("StyleBoxEmpty_jsqdb")
-text = "English"
 
 [node name="credits" type="Button" parent="."]
 offset_right = 8.0
@@ -197,9 +221,9 @@ texture = ExtResource("2_g8351")
 [connection signal="pressed" from="startGameButton" to="." method="_on_start_game_button_pressed"]
 [connection signal="pressed" from="settingsButton" to="." method="_on_settings_button_pressed"]
 [connection signal="pressed" from="Settings/closeButton" to="." method="_on_close_button_pressed"]
-[connection signal="toggled" from="Settings/FPS/CheckButton" to="Settings" method="_on_check_button_toggled"]
-[connection signal="pressed" from="Settings/Difficulty/Button" to="Settings" method="_on_button_pressed"]
 [connection signal="pressed" from="Settings/Language/languageButton" to="Settings" method="_on_language_button_pressed"]
+[connection signal="pressed" from="Settings/Difficulty/Button" to="Settings" method="_on_button_pressed"]
+[connection signal="toggled" from="Settings/FPS/CheckButton" to="Settings" method="_on_check_button_toggled"]
 [connection signal="pressed" from="credits" to="." method="_on_credits_pressed"]
 [connection signal="pressed" from="credits/Panel/closeButton" to="." method="_on_close_button_pressed"]
 [connection signal="pressed" from="Continue Game" to="." method="_on_continue_game_pressed"]

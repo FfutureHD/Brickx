@@ -1,6 +1,5 @@
 extends Panel
 
-
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	
@@ -36,20 +35,49 @@ func _ready() -> void:
 			set_meta("Difficulty", 3)
 			$Difficulty/Button.text = "Extreme"
 			$Difficulty/Button.modulate = Color(200, 0, 0)
+		
 	
 	match settings.language:
 		1.0:
 			set_meta("Language", 1)
 			TranslationServer.set_locale("en")
-			$Language/languageButton.text = tr("English")
-
+			$Language/languageButton.text = "English"
+		2.0:
+			set_meta("Language", 2)
+			TranslationServer.set_locale("de")
+			$Language/languageButton.text = "German"
+		3.0:
+			set_meta("Language", 3)
+			TranslationServer.set_locale("fr")
+			$Language/languageButton.text = "French"
+		4.0:
+			set_meta("Language", 4)
+			TranslationServer.set_locale("es")
+			$Language/languageButton.text = "Spanish"
+		5.0:
+			set_meta("Language", 5)
+			TranslationServer.set_locale("nl")
+			$Language/languageButton.text = "Dutch"
+		6.0:
+			set_meta("Language", 6)
+			TranslationServer.set_locale("it")
+			$Language/languageButton.text = "Italian"
+		7.0:
+			set_meta("Language", 7)
+			TranslationServer.set_locale("ja")
+			$Language/languageButton.text = "Japanese"
+		8.0:
+			set_meta("Language", 8)
+			TranslationServer.set_locale("se")
+			$Language/languageButton.text = "Swedish"
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	pass
+	#print("Hight: %d, Position: %d" % [$Difficulty/Button.size.y, $Difficulty/Button.position.y])
 
 func _on_check_button_toggled(toggled_on: bool) -> void:
-	if $FPS/CheckButton.button_pressed:
+	if toggled_on:
 		$FPS/CheckButton.text = "60 FPS"
 		Engine.max_fps = 60
 	else:
@@ -60,17 +88,21 @@ func _on_check_button_toggled(toggled_on: bool) -> void:
 func _on_button_pressed() -> void:
 	match get_meta("Difficulty"):
 		1:
+			$Difficulty/Button.modulate = Color(255, 200, 0)
 			set_meta("Difficulty", 2)
 			$Difficulty/Button.text = "Medium"
-			$Difficulty/Button.modulate = Color(255, 200, 0)
 		2:
+			$Difficulty/Button.modulate = Color(200, 0, 0)
 			set_meta("Difficulty", 3)
 			$Difficulty/Button.text = "Extreme"
-			$Difficulty/Button.modulate = Color(200, 0, 0)
 		3:
+			$Difficulty/Button.modulate = Color(0, 200, 0)
 			set_meta("Difficulty", 1)
 			$Difficulty/Button.text = "Beginner"
-			$Difficulty/Button.modulate = Color(0, 200, 0)
+	
+	$Difficulty/Button.reset_size()
+	$Difficulty/Button.position = Vector2((size.x - $Difficulty/Button.size.x) / 2, $Difficulty/Label.position.y + $Difficulty/Label.size.y + 5)
+
 
 func save_settings() -> void:
 	var settings = {
@@ -84,38 +116,41 @@ func save_settings() -> void:
 
 
 func _on_language_button_pressed() -> void:
+	
 	match get_meta("Language"):
 		1:
 			set_meta("Language", 2)
 			TranslationServer.set_locale("de")
-			$Language/languageButton.text = tr("German")
+			$Language/languageButton.text = "German"
 		2:
 			set_meta("Language", 3)
 			TranslationServer.set_locale("fr")
-			$Language/languageButton.text = tr("French")
+			$Language/languageButton.text = "French"
 		3:
 			set_meta("Language", 4)
 			TranslationServer.set_locale("es")
-			$Language/languageButton.text = tr("Spanish")
+			$Language/languageButton.text = "Spanish"
 		4:
 			set_meta("Language", 5)
 			TranslationServer.set_locale("nl")
-			$Language/languageButton.text = tr("Dutch")
+			$Language/languageButton.text = "Dutch"
 		5:
 			set_meta("Language", 6)
 			TranslationServer.set_locale("it")
-			$Language/languageButton.text = tr("Italian")
+			$Language/languageButton.text = "Italian"
 		6:
 			set_meta("Language", 7)
 			TranslationServer.set_locale("ja")
-			$Language/languageButton.text = tr("Japanese")
+			$Language/languageButton.text = "Japanese"
 		7:
 			set_meta("Language", 8)
 			TranslationServer.set_locale("se")
-			$Language/languageButton.text = tr("Swedish")
+			$Language/languageButton.text = "Swedish"
 		8:
 			set_meta("Language", 1)
 			TranslationServer.set_locale("en")
-			$Language/languageButton.text = tr("English")
-	
+			$Language/languageButton.text = "English"
+	await get_tree().create_timer(0.001).timeout
 	get_parent().upddate_gui()
+	
+	
