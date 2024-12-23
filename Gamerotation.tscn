@@ -1,11 +1,13 @@
-[gd_scene load_steps=15 format=3 uid="uid://dt37gkonfda6o"]
+[gd_scene load_steps=17 format=3 uid="uid://dt37gkonfda6o"]
 
 [ext_resource type="Script" path="res://saveload.gd" id="1_qdvv5"]
 [ext_resource type="Script" path="res://Plattformrotation.gd" id="2_5ljwh"]
 [ext_resource type="Script" path="res://bricks.gd" id="3_23sm5"]
 [ext_resource type="Script" path="res://BallMovement.gd" id="3_ecyqr"]
 [ext_resource type="Script" path="res://Countdown.gd" id="4_2c1jh"]
+[ext_resource type="Theme" uid="uid://7casv6hwuurm" path="res://themes/hearts.tres" id="4_q68hs"]
 [ext_resource type="Texture2D" uid="uid://ccr7ymw0auavr" path="res://textures/Ball/ball_6x.png" id="4_tlgx8"]
+[ext_resource type="Theme" uid="uid://6s2dwensd5fs" path="res://themes/points.tres" id="5_bqy8u"]
 [ext_resource type="Texture2D" uid="uid://bbgbuq4b71ac3" path="res://textures/watch_overlay.png" id="5_ii0v0"]
 [ext_resource type="Script" path="res://paused.gd" id="8_t2tbi"]
 
@@ -32,7 +34,6 @@ position = Vector2(198.5, 198.5)
 script = ExtResource("1_qdvv5")
 
 [node name="BG" type="ColorRect" parent="."]
-visible = false
 offset_left = -300.0
 offset_top = -300.0
 offset_right = 300.0
@@ -92,6 +93,7 @@ layout_mode = 0
 offset_left = 20.0
 offset_right = 60.0
 offset_bottom = 23.0
+theme = ExtResource("4_q68hs")
 text = "
 "
 horizontal_alignment = 1
@@ -103,7 +105,7 @@ metadata/Lives = 3
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 23.0
-theme_override_font_sizes/font_size = 12
+theme = ExtResource("5_bqy8u")
 text = "Points: 0"
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -116,7 +118,7 @@ shape = SubResource("CircleShape2D_rm76p")
 
 [node name="Bricks" type="Node2D" parent="."]
 script = ExtResource("3_23sm5")
-metadata/difficulty = 1
+metadata/difficulty = 20
 metadata/rotation0 = 0.0
 metadata/rotation1 = 0.0
 metadata/rotation2 = 0.0

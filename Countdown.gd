@@ -90,8 +90,8 @@ func _process(delta: float) -> void:
 func lost() -> void:
 	get_tree().paused = true
 	get_parent().get_node("Lost/Losttext").text = tr("lost_text") % $Points.get_meta("points")
-	update_gui(true)
 	get_parent().get_node("Lost").visible = true
+	update_gui(true)
 	get_parent().get_node("BallTrajectory").hide()
 	get_parent().get_node("Countdown").hide()
 	get_parent().get_node("Lost").set_meta("lost", true)

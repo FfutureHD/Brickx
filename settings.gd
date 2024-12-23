@@ -83,18 +83,19 @@ func _on_check_button_toggled(toggled_on: bool) -> void:
 
 
 func _on_button_pressed() -> void:
+	
 	match get_meta("Difficulty"):
 		1:
 			$Difficulty/Button.modulate = Color(255, 200, 0)
-			set_meta("difficultySetting", 2)
+			set_meta("Difficulty", 2)
 			$Difficulty/Button.text = "Medium"
 		2:
 			$Difficulty/Button.modulate = Color(200, 0, 0)
-			set_meta("difficultySetting", 3)
+			set_meta("Difficulty", 3)
 			$Difficulty/Button.text = "Extreme"
 		3:
 			$Difficulty/Button.modulate = Color(0, 200, 0)
-			set_meta("difficultySetting", 1)
+			set_meta("Difficulty", 1)
 			$Difficulty/Button.text = "Beginner"
 	
 	$Difficulty/Button.reset_size()
@@ -147,7 +148,7 @@ func _on_language_button_pressed() -> void:
 			set_meta("Language", 1)
 			TranslationServer.set_locale("en")
 			$Language/languageButton.text = "English"
-	await get_tree().create_timer(0.001).timeout
+	await get_tree().create_timer(0.01).timeout
 	get_parent().upddate_gui()
 	
 	

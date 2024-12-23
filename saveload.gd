@@ -24,7 +24,7 @@ func _ready() -> void:
 		_load(saveData)
 	else:
 		$Bricks.set_meta("difficultySetting", settings.difficulty)
-		$Bricks.set_meta("difficulty", settings.difficulty)
+		##$Bricks.set_meta("difficulty", settings.difficulty)
 		
 		$BallTrajectory/Ball.set_meta("movementSpeed",0.64 *  $BallTrajectory/Ball.get_meta("movementSpeed") / (sqrt(0.64) ** settings.difficulty))
 		
@@ -92,7 +92,9 @@ func saveNode(node: Node):
 		"parent" : node.get_parent().get_path(),
 		"pos_x" : node.position.x, # Vector2 is not supported by JSON
 		"pos_y" : node.position.y,
-		"rotation" : node.rotation
+		"rotation" : node.rotation,
+		"hardness" : node.get_meta("hardness"),
+		"abpraller" : node.get_meta("abpraller")
 	}
 	return save_dict
 
@@ -122,6 +124,40 @@ func loadBricks(brickdata, savedata) -> void:
 				var newBrick = loadedBrick.instantiate()
 				newBrick.position = Vector2(node_data["pos_x"], node_data["pos_y"])
 				newBrick.rotation = node_data["rotation"]
+				newBrick.set_meta("hardness", int(node_data["hardness"]))
+				newBrick.set_meta("abpraller", int(node_data["abpraller"]))
+				
+				match int(node_data["hardness"] - node_data["abpraller"]):
+					0:
+						newBrick.get_node("Area2D/Polygon2D").color = Color(0, 0.95, 1)
+					1:
+						newBrick.get_node("Area2D/Polygon2D").color = Color(0, 0.7, 1)
+					2:
+						newBrick.get_node("Area2D/Polygon2D").color = Color(0, 0.55, 1)
+					3:
+						newBrick.get_node("Area2D/Polygon2D").color = Color(0, 0.05, 1)
+					4:
+						newBrick.get_node("Area2D/Polygon2D").color = Color(0.4, 0, 1)
+						newBrick.get_node("Area2D/Line2D").default_color = Color(0, 0.05, 1, 1)
+					5:
+						newBrick.get_node("Area2D/Polygon2D").color = Color(0.7, 0, 1)
+						newBrick.get_node("Area2D/Line2D").default_color = Color(0.32, 0, 0.8, 1)
+					6:
+						newBrick.get_node("Area2D/Polygon2D").color = Color(1, 0, 1)
+						newBrick.get_node("Area2D/Line2D").default_color = Color(0.42, 0, 0.6, 1)
+					7:
+						newBrick.get_node("Area2D/Polygon2D").color = Color(1, 0, 0.7)
+						newBrick.get_node("Area2D/Line2D").default_color = Color(0.4, 0, 0.4, 1)
+					8:
+						newBrick.get_node("Area2D/Polygon2D").color = Color(1, 0, 0.3)
+						newBrick.get_node("Area2D/Line2D").default_color = Color(0.2, 0, 0.14, 1)
+					9:
+						newBrick.get_node("Area2D/Polygon2D").color = Color(1, 0, 0)
+						newBrick.get_node("Area2D/Line2D").default_color = Color(0, 0, 1, 1)
+					10:
+						newBrick.get_node("Area2D/Polygon2D").color = Color(0, 0, 0)
+						newBrick.get_node("Area2D/Line2D").default_color = Color(1, 0, 0, 1)
+				
 				get_node(node_data["parent"]).add_child(newBrick)
 	
 	$Bricks.set_meta("rotation0", savedata.lay0rot)

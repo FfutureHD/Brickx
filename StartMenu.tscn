@@ -41,12 +41,20 @@ position = Vector2(198, 198)
 script = ExtResource("1_7xnh2")
 
 [node name="BG" type="ColorRect" parent="."]
-visible = false
 offset_left = -300.0
 offset_top = -300.0
 offset_right = 300.0
 offset_bottom = 300.0
 color = Color(0, 0, 0, 1)
+
+[node name="splashtext" type="Label" parent="."]
+offset_right = 60.0
+offset_bottom = 28.0
+rotation = 0.436332
+theme_override_colors/font_shadow_color = Color(0.0392157, 0.0392157, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 1, 0.784314)
+theme_override_font_sizes/font_size = 20
+text = "Brickx"
 
 [node name="Menu" type="Label" parent="."]
 offset_left = -20.0

@@ -4,6 +4,7 @@ var buttonFocusTime = 0.5
 var buttonFocusCountdown = 0
 var content
 var close = true
+var grows: bool
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -14,6 +15,19 @@ func _ready() -> void:
 	
 	upddate_gui()
 
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta: float) -> void:
+	if $splashtext.scale.x <= 0.6:
+		grows = true
+	else:
+		if $splashtext.scale.x >=1:
+			grows = false
+	if grows:
+		$splashtext.scale += Vector2(delta/4, delta/4)
+	else:
+		$splashtext.scale -= Vector2(delta/4, delta/4)
+	$splashtext.position = Vector2(100, -100) -$splashtext.size/2 * $splashtext.scale
+	
 
 func _notification(what):
 	if what == NOTIFICATION_WM_GO_BACK_REQUEST:
@@ -39,9 +53,11 @@ func _on_credits_pressed() -> void:
 	close = false
 	$credits.disabled = true
 	$credits/Panel.show()
+	upddate_gui()
 	$settingsButton.hide()
 	$startGameButton.hide()
 	$"Continue Game".hide()
+	$splashtext.hide()
 
 func _on_start_game_button_pressed() -> void:
 	$Settings.save_settings()
@@ -61,6 +77,7 @@ func _on_close_button_pressed() -> void:
 	$Settings.hide()
 	$settingsButton.show()
 	$startGameButton.show()
+	$splashtext.show()
 	if content != "":
 		$"Continue Game".show()
 
@@ -75,7 +92,9 @@ func _on_settings_button_pressed() -> void:
 	$startGameButton.hide()
 	$settingsButton.hide()
 	$"Continue Game".hide()
+	$splashtext.hide()
 	$Settings.show()
+	upddate_gui()
 
 func upddate_gui() -> void:
 	

@@ -114,7 +114,7 @@ func generateBricks() -> void:
 						10:
 							newBrick.set_meta("hardness", 9)
 							newBrick.get_node("Area2D/Polygon2D").color = Color(1, 0, 0)
-							newBrick.get_node("Area2D/Line2D").default_color = Color(0, 0, 0, 1)
+							newBrick.get_node("Area2D/Line2D").default_color = Color(0, 0, 1, 1)
 				else:
 					newBrick.set_meta("hardness", 10)
 					newBrick.get_node("Area2D/Polygon2D").color = Color(0, 0, 0)
