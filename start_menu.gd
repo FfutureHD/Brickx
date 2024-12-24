@@ -13,7 +13,11 @@ func _ready() -> void:
 	$credits.flat = true
 	$credits/Panel.visible = false
 	
+	await get_tree().create_timer(0.2).timeout
 	upddate_gui()
+	
+	$FG.queue_free()
+	
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:

@@ -193,9 +193,7 @@ offset_left = -198.0
 offset_top = -198.0
 offset_right = 13.0
 offset_bottom = -123.0
-text = "Designed and programmed
-by
-Fabrice Bäder"
+text = "credits_text"
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -225,6 +223,13 @@ text = "Continue Game"
 
 [node name="Watch Overlay" type="Sprite2D" parent="."]
 texture = ExtResource("2_g8351")
+
+[node name="FG" type="ColorRect" parent="."]
+offset_left = -300.0
+offset_top = -300.0
+offset_right = 300.0
+offset_bottom = 300.0
+color = Color(0, 0, 0, 1)
 
 [connection signal="pressed" from="startGameButton" to="." method="_on_start_game_button_pressed"]
 [connection signal="pressed" from="settingsButton" to="." method="_on_settings_button_pressed"]

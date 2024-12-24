@@ -53,6 +53,7 @@ shape = SubResource("RectangleShape2D_afldp")
 
 [node name="Polygon2D" type="Polygon2D" parent="Plattformrotation/Plattform"]
 position = Vector2(-0.000808716, 180)
+color = Color(0, 0.690196, 0, 1)
 polygon = PackedVector2Array(5, 0, -5, 0, -10, -1, -10, 2, -5, 3, 5, 3, 10, 2, 10, -1)
 
 [node name="Plattform rechts" type="Area2D" parent="Plattformrotation/Plattform"]
@@ -118,7 +119,7 @@ shape = SubResource("CircleShape2D_rm76p")
 
 [node name="Bricks" type="Node2D" parent="."]
 script = ExtResource("3_23sm5")
-metadata/difficulty = 20
+metadata/difficulty = 1
 metadata/rotation0 = 0.0
 metadata/rotation1 = 0.0
 metadata/rotation2 = 0.0
@@ -154,6 +155,7 @@ metadata/difficultySetting = 1.0
 [node name="BallTrajectory" type="Line2D" parent="."]
 points = PackedVector2Array(0, 0, 0, 400)
 width = 1.0
+default_color = Color(1, 1, 1, 0)
 
 [node name="Ball" type="CharacterBody2D" parent="BallTrajectory"]
 position = Vector2(0, 100)
