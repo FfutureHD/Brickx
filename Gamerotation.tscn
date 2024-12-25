@@ -15,10 +15,10 @@
 size = Vector2(10, 5)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_6wlin"]
-size = Vector2(5, 5)
+size = Vector2(10, 5)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0q686"]
-size = Vector2(5, 5)
+size = Vector2(10, 5)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_mp1fb"]
 size = Vector2(40, 10)
@@ -48,26 +48,26 @@ metadata/platformSize = 5
 collision_layer = 2
 
 [node name="Mitte" type="CollisionShape2D" parent="Plattformrotation/Plattform"]
-position = Vector2(0, 180)
+position = Vector2(0, 182.5)
 shape = SubResource("RectangleShape2D_afldp")
 
 [node name="Polygon2D" type="Polygon2D" parent="Plattformrotation/Plattform"]
 position = Vector2(-0.000808716, 180)
 color = Color(0, 0.690196, 0, 1)
-polygon = PackedVector2Array(5, 0, -5, 0, -10, -1, -10, 2, -5, 3, 5, 3, 10, 2, 10, -1)
+polygon = PackedVector2Array(5, 0, -5, 0, -15, 2, -15, 5, -5, 3, 5, 3, 15, 5, 15, 2)
 
 [node name="Plattform rechts" type="Area2D" parent="Plattformrotation/Plattform"]
 collision_layer = 4
 
 [node name="Rechts" type="CollisionShape2D" parent="Plattformrotation/Plattform/Plattform rechts"]
-position = Vector2(7.5, 180)
+position = Vector2(10, 182.5)
 shape = SubResource("RectangleShape2D_6wlin")
 
 [node name="Plattform links" type="Area2D" parent="Plattformrotation/Plattform"]
 collision_layer = 8
 
 [node name="Links" type="CollisionShape2D" parent="Plattformrotation/Plattform/Plattform links"]
-position = Vector2(-7.5, 180)
+position = Vector2(-10, 182.5)
 shape = SubResource("RectangleShape2D_0q686")
 
 [node name="NearPlatform" type="Area2D" parent="Plattformrotation/Plattform"]
@@ -155,14 +155,13 @@ metadata/difficultySetting = 1.0
 [node name="BallTrajectory" type="Line2D" parent="."]
 points = PackedVector2Array(0, 0, 0, 400)
 width = 1.0
-default_color = Color(1, 1, 1, 0)
 
 [node name="Ball" type="CharacterBody2D" parent="BallTrajectory"]
 position = Vector2(0, 100)
 collision_mask = 14
 input_pickable = true
 script = ExtResource("3_ecyqr")
-metadata/maxWinkel = 10
+metadata/maxWinkel = -90
 metadata/movementSpeed = 100
 metadata/ballSize = 16.0
 metadata/eingangswinkel = 0.0

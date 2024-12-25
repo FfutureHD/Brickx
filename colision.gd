@@ -32,7 +32,7 @@ func brickbounce(ball: Node2D) -> void:
 	if balldirection.y == 3.5:
 		eingangswinkel = eingangswinkel + PI
 	else:
-		if (balldirection.x/(balldirection.y-3.5)) > ((15 + ball.get_meta("ballSize"))/(3.5 + ball.get_meta("ballSize"))):
+		if (abs(balldirection.x)/abs(balldirection.y-3.5)) > ((15 + abs(ball.get_meta("ballSize")/2))/abs((3.5 + ball.get_meta("ballSize")/2))):
 			eingangswinkel = eingangswinkel - PI
 		
 	

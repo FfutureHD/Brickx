@@ -29,18 +29,18 @@ func _physics_process(delta: float) -> void:
 
 func updateSize() -> void:
 	platformSize = get_meta("platformSize")
-	polygonpoints = [Vector2(5, 0),Vector2(-5, 0),Vector2(-10, -platformSize),Vector2(-10, 3 - platformSize),Vector2(-5, 3),Vector2(5, 3),Vector2(10, 3 - platformSize),Vector2(10, -platformSize)]
+	polygonpoints = [Vector2(5, 0),Vector2(-5, 0),Vector2(-15, 2 * platformSize),Vector2(-15, 3 + 2 * platformSize),Vector2(-5, 3),Vector2(5, 3),Vector2(15, 3 + 2 * platformSize),Vector2(15, 2 * platformSize)]
 	
 	for n in range(0, 8):
 		polygonpoints[n] = Vector2(polygonpoints[n].x * platformSize, polygonpoints[n].y)
 	$Plattform/Polygon2D.polygon = polygonpoints
 	$Plattform/Mitte.shape.extents = Vector2(10 * platformSize/2, platformSize/2 + 3)
-	$Plattform/Mitte.position.y = 180 - platformSize/2
-	$"Plattform/Plattform rechts/Rechts".position.x = 7.5 * platformSize
-	$"Plattform/Plattform rechts/Rechts".shape.extents = Vector2(5 * platformSize/2, platformSize/2 + 3)
-	$"Plattform/Plattform rechts/Rechts".position.y = 180 - platformSize/2
-	$"Plattform/Plattform links/Links".position.x = -7.5 * platformSize
-	$"Plattform/Plattform links/Links".shape.extents = Vector2(5 * platformSize/2, platformSize/2 + 3)
-	$"Plattform/Plattform links/Links".position.y = 180 - platformSize/2
+	$Plattform/Mitte.position.y = 180 + platformSize/2 + 3
+	$"Plattform/Plattform rechts/Rechts".position.x = 10 * platformSize
+	$"Plattform/Plattform rechts/Rechts".shape.extents = Vector2(5 * platformSize, platformSize/2 + 3)
+	$"Plattform/Plattform rechts/Rechts".position.y = 180 + platformSize/2 + 3
+	$"Plattform/Plattform links/Links".position.x = -10 * platformSize
+	$"Plattform/Plattform links/Links".shape.extents = Vector2(5 * platformSize, platformSize/2 + 3)
+	$"Plattform/Plattform links/Links".position.y = 180 + platformSize/2 + 3
 	$Plattform/NearPlatform/CollisionShape2D.shape.extents = Vector2(15 * platformSize + 15, 5 * platformSize)
 	
